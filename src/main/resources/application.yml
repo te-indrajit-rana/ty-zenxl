@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    username: uv9jp68pzs5qz06d
+    password: oUcJGNdAHiJnZEZDFSgR
+    url: jdbc:mysql://bokhmlfxsc86dnln0qhg-mysql.services.clever-cloud.com:3306/bokhmlfxsc86dnln0qhg
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  mail:
+    host: smtp.gmail.com
+    username: www.indrajit55@gmail.com
+    password: rsygyoxhxdqwxpyz
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          starttls:
+            enable: true
+            required: true
+          timeout: 5000
+          writetimeout: 5000
+springdoc:
+  swagger-ui:
+    csrf:
+      enabled: true

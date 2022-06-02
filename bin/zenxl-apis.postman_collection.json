@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "a7a2e68a-2a46-4111-b78e-32cb1c4dd33a",
+		"name": "zenxl-apis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Admin Registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin\",\r\n    \"email\": \"indrajitrana104@gmail.com\",\r\n    \"dateOfBirth\": \"1997-10-24\",\r\n    \"gender\": \"MALE\",\r\n    \"password\": \"admin123\",\r\n    \"role\": \"ROLE_ADMIN\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/zenxl/admin-registration",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"zenxl",
+						"admin-registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"indrajit\",\n    \"password\": \"indrajit123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add User By Admin Request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJpbmRyYWppdCIsImV4cCI6MTY1MTcwMTg4MSwiaWF0IjoxNjUxNjY1ODgxfQ.rwTSR0AR-1YKlBXmL7ICLK2Xxp8zAgdGE9iVmd41WiM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"zenxl\",\n    \"email\": \"indrajitrana104@gmail.com\",\n    \"dateOfBirth\": \"1997-10-24\",\n    \"gender\": \"MALE\",\n    \"password\": \"indrajit104\",\n    \"role\": \"ROLE_ACCOUNTS\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/zenxl/auth/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"zenxl",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Forgot Password Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/zenxl/forgot-password?email=iamindrajitrana@yahoo.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"zenxl",
+						"forgot-password"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "iamindrajitrana@yahoo.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Password Request",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"indrajitrana104@gmail.com\",\n    \"passcode\": \"275190\",\n    \"password\": \"indrajit@104\",\n    \"rePassword\": \"indrajit@104\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/zenxl/change-password",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"zenxl",
+						"change-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Changing user status",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY1MjIxMjAwOCwiaWF0IjoxNjUyMTc2MDA4fQ.E8AVsdmtfGBF-uNSAFQeB7CQ7tlfuG2jQWWhGp332-g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "zenxl1",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "false",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/zenxl/user-status",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"zenxl",
+						"user-status"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

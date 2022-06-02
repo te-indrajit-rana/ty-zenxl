@@ -1,0 +1,72 @@
+package com.ty.zenxl.pojos;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.ty.zenxl.entity.User;
+
+import lombok.Builder;
+
+/**
+ * Implements the {@code UserDetails} to provide the mechanism of fetching the user details
+ * along with account is locked and disabled or not informations.
+ * 
+ * @author Indrajit
+ * @version 1.0
+ */
+
+
+@Builder
+public class ZenxlCustomUserDetails implements UserDetails {
+
+	private static final long serialVersionUID = 1L;
+	private final User user;
+	
+	public ZenxlCustomUserDetails(User user) {
+		this.user = user;
+	}
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+		authorities.add(new SimpleGrantedAuthority(user.getRole().getRoleName()));
+		return authorities;
+	}
+
+	@Override
+	public String getPassword() {
+		return user.getPassword();
+	}
+
+	@Override
+	public String getUsername() {
+		return user.getUsername();
+	}
+	
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return user.isActive();
+	}
+
+
+}
