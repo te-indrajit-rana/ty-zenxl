@@ -22,14 +22,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ty.zenxl.pojos.ZenxlResponseBody;
 import com.ty.zenxl.request.CertificateRequest;
 import com.ty.zenxl.request.CodeRequest;
+import com.ty.zenxl.request.HsCodeRequest;
 import com.ty.zenxl.request.IncotermRequest;
 import com.ty.zenxl.request.InspectionRequest;
 import com.ty.zenxl.request.UpdateCertificateRequest;
 import com.ty.zenxl.request.UpdateCodeRequest;
+import com.ty.zenxl.request.UpdateHsCodeRequest;
 import com.ty.zenxl.request.UpdateIncotermRequest;
 import com.ty.zenxl.request.UpdateInspectionRequest;
 import com.ty.zenxl.response.CertificateResponse;
 import com.ty.zenxl.response.CodeResponse;
+import com.ty.zenxl.response.HsCodeResponse;
 import com.ty.zenxl.response.IncotermResponse;
 import com.ty.zenxl.response.InspectionResponse;
 import com.ty.zenxl.service.ZenxlUtilityService;
@@ -185,5 +188,37 @@ public class ZenxlUtilityController {
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteInspectionMessage).build();
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
+
+	// hscode crud apis
+
+		@PostMapping("/add-hscode")
+		public ResponseEntity<ZenxlResponseBody> addHsCode(@Valid @RequestBody HsCodeRequest request) {
+			
+			HsCodeResponse addHsCode = zenxlUtilityService.addHsCode(request);
+			ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(ADDED_SUCCESSFULLY).data(addHsCode).build();
+			return ResponseEntity.status(HttpStatus.CREATED).body(zenxlResponseBody);
+		}
+
+		@GetMapping("/find-all-hscodes")
+		public ResponseEntity<List<HsCodeResponse>> findAllHsCodes() {
+			return ResponseEntity.ok(zenxlUtilityService.findAllHsCodes());
+		}
+
+		@PutMapping("/update-hscode/{hsCodeId}")
+		public ResponseEntity<ZenxlResponseBody> updateHscode(@PathVariable int hsCodeId,
+				@Valid @RequestBody UpdateHsCodeRequest request) {
+			
+			String updateHsCodeMessage = zenxlUtilityService.updateHsCode(hsCodeId, request);
+			ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(updateHsCodeMessage).build();
+			return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
+		}
+
+		@DeleteMapping("/delete-hscode/{hsCodeId}")
+		public ResponseEntity<ZenxlResponseBody> deleteHsCode(@PathVariable int hsCodeId) {
+			
+			String deleteHsCodeMessage = zenxlUtilityService.deleteHsCode(hsCodeId);
+			ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteHsCodeMessage).build();
+			return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
+		}
 
 }

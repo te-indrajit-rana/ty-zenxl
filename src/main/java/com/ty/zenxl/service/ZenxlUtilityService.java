@@ -18,12 +18,15 @@ import org.springframework.stereotype.Service;
 
 import com.ty.zenxl.entity.Certificate;
 import com.ty.zenxl.entity.Code;
+import com.ty.zenxl.entity.HsCode;
 import com.ty.zenxl.entity.Incoterm;
 import com.ty.zenxl.entity.Inspection;
 import com.ty.zenxl.exception.CertificateNotFoundException;
 import com.ty.zenxl.exception.CertificatePersistenceException;
 import com.ty.zenxl.exception.CodeNotFoundException;
 import com.ty.zenxl.exception.CodePersistenceException;
+import com.ty.zenxl.exception.HsCodeNotFoundException;
+import com.ty.zenxl.exception.HsCodePersistenceException;
 import com.ty.zenxl.exception.IncotermNotFoundException;
 import com.ty.zenxl.exception.IncotermPersistenceException;
 import com.ty.zenxl.exception.InspectionNotFoundException;
@@ -31,18 +34,22 @@ import com.ty.zenxl.exception.InspectionPersistenceException;
 import com.ty.zenxl.exception.UpdateException;
 import com.ty.zenxl.repository.CertificateRepository;
 import com.ty.zenxl.repository.CodeRepository;
+import com.ty.zenxl.repository.HsCodeRepository;
 import com.ty.zenxl.repository.IncotermRepository;
 import com.ty.zenxl.repository.InspectionRepository;
 import com.ty.zenxl.request.CertificateRequest;
 import com.ty.zenxl.request.CodeRequest;
+import com.ty.zenxl.request.HsCodeRequest;
 import com.ty.zenxl.request.IncotermRequest;
 import com.ty.zenxl.request.InspectionRequest;
 import com.ty.zenxl.request.UpdateCertificateRequest;
 import com.ty.zenxl.request.UpdateCodeRequest;
+import com.ty.zenxl.request.UpdateHsCodeRequest;
 import com.ty.zenxl.request.UpdateIncotermRequest;
 import com.ty.zenxl.request.UpdateInspectionRequest;
 import com.ty.zenxl.response.CertificateResponse;
 import com.ty.zenxl.response.CodeResponse;
+import com.ty.zenxl.response.HsCodeResponse;
 import com.ty.zenxl.response.IncotermResponse;
 import com.ty.zenxl.response.InspectionResponse;
 
@@ -66,6 +73,7 @@ public class ZenxlUtilityService {
 	private final CodeRepository codeRepository;
 	private final IncotermRepository incotermRepository;
 	private final InspectionRepository inspectionRepository;
+	private final HsCodeRepository hsCodeRepository;
 
 	// certificate crud api logics
 
@@ -228,6 +236,46 @@ public class ZenxlUtilityService {
 		Inspection inspection = inspectionRepository.findByInspectionId(inspectionId).orElseThrow(
 				() -> new InspectionNotFoundException("Inspection not found with inspection id " + inspectionId));
 		inspectionRepository.deleteInspection(inspection.getInspectionId());
+		return DELETED_SUCCESSFULLY;
+	}
+
+	// hscode crud api logics
+	
+	public HsCodeResponse addHsCode(HsCodeRequest request) {
+		if (Boolean.TRUE.equals(hsCodeRepository.existsByHsCodeType(request.getHsCodeType()))) {
+			throw new HsCodePersistenceException("HsCode Already Exists");
+		}
+		HsCode hsCode = HsCode.builder().hsCodeType(request.getHsCodeType()).build();
+		HsCode savedHsCode = hsCodeRepository.save(hsCode);
+		if (savedHsCode != null) {
+			return HsCodeResponse.builder().hsCodeType(savedHsCode.getHsCodeType()).build();
+		}
+		throw new HsCodePersistenceException(SOMETHING_WENT_WRONG);
+	}
+
+	public List<HsCodeResponse> findAllHsCodes() {
+		List<HsCode> findAllHsCodes = hsCodeRepository.findAll();
+		return findAllHsCodes.stream()
+				.map(hsCode -> HsCodeResponse.builder().hsCodeId(hsCode.getHsCodeId()).hsCodeType(hsCode.getHsCodeType()).build())
+				.collect(Collectors.toList());
+	}
+
+	public String updateHsCode(int hsCodeId, @Valid UpdateHsCodeRequest request) {
+		HsCode hsCode = hsCodeRepository.findByHsCodeId(hsCodeId).orElseThrow(
+				() -> new HsCodeNotFoundException("HsCode not found with hsCode id " + hsCodeId));
+
+		hsCode.setHsCodeType(request.getHsCodeType());
+		HsCode updatedHsCode = hsCodeRepository.save(hsCode);
+		if (updatedHsCode != null) {
+			return UPDATED_SUCCESSFULLY;
+		}
+		throw new UpdateException(SOMETHING_WENT_WRONG);
+	}
+
+	public String deleteHsCode(int hsCodeId) {
+		HsCode hsCode = hsCodeRepository.findByHsCodeId(hsCodeId).orElseThrow(
+				() -> new HsCodeNotFoundException("HsCode not found with hsCode id " + hsCodeId));
+		hsCodeRepository.deleteHsCode(hsCode.getHsCodeId());
 		return DELETED_SUCCESSFULLY;
 	}
 
