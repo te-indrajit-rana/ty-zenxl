@@ -128,7 +128,7 @@ public class ZenxlUtilityService {
 		Code code = Code.builder().codeType(request.getCodeType()).build();
 		Code savedCode = codeRepository.save(code);
 		if (savedCode != null) {
-			return CodeResponse.builder().codeType(savedCode.getCodeType()).build();
+			return CodeResponse.builder().codeId(savedCode.getCodeId()).codeType(savedCode.getCodeType()).build();
 		}
 		throw new CodePersistenceException(SOMETHING_WENT_WRONG);
 	}
@@ -168,7 +168,7 @@ public class ZenxlUtilityService {
 		Incoterm incoterm = Incoterm.builder().incotermType(request.getIncotermType()).build();
 		Incoterm savedIncoterm = incotermRepository.save(incoterm);
 		if (savedIncoterm != null) {
-			return IncotermResponse.builder().incotermType(savedIncoterm.getIncotermType()).build();
+			return IncotermResponse.builder().incotermId(savedIncoterm.getIncotermId()).incotermType(savedIncoterm.getIncotermType()).build();
 		}
 		throw new IncotermPersistenceException(SOMETHING_WENT_WRONG);
 	}
@@ -208,7 +208,7 @@ public class ZenxlUtilityService {
 		Inspection inspection = Inspection.builder().inspectionType(request.getInspectionType()).build();
 		Inspection savedInspection = inspectionRepository.save(inspection);
 		if (savedInspection != null) {
-			return InspectionResponse.builder().inspectionType(savedInspection.getInspectionType()).build();
+			return InspectionResponse.builder().inspectionId(savedInspection.getInspectionId()).inspectionType(savedInspection.getInspectionType()).build();
 		}
 		throw new InspectionPersistenceException(SOMETHING_WENT_WRONG);
 	}
@@ -248,7 +248,7 @@ public class ZenxlUtilityService {
 		HsCode hsCode = HsCode.builder().hsCodeType(request.getHsCodeType()).build();
 		HsCode savedHsCode = hsCodeRepository.save(hsCode);
 		if (savedHsCode != null) {
-			return HsCodeResponse.builder().hsCodeType(savedHsCode.getHsCodeType()).build();
+			return HsCodeResponse.builder().hsCodeId(savedHsCode.getHsCodeId()).hsCodeType(savedHsCode.getHsCodeType()).build();
 		}
 		throw new HsCodePersistenceException(SOMETHING_WENT_WRONG);
 	}
