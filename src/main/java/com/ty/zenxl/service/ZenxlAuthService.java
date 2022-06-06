@@ -52,6 +52,7 @@ import com.ty.zenxl.exception.UserNotFoundException;
 import com.ty.zenxl.exception.UserPersistenceException;
 import com.ty.zenxl.pojos.JwtUtils;
 import com.ty.zenxl.repository.PasscodeRepository;
+import com.ty.zenxl.repository.RoleRepository;
 import com.ty.zenxl.repository.UserRepository;
 import com.ty.zenxl.request.ChangePasswordRequest;
 import com.ty.zenxl.request.LoginRequest;
@@ -81,6 +82,7 @@ public class ZenxlAuthService {
 	private final ZenxlCustomUserDetailsService userDetailsService;
 	private final AuthenticationManager authenticationManager;
 	private final UserRepository userRepository;
+	private final RoleRepository roleRepository;
 	private final PasscodeRepository passcodeRepository;
 	private final JwtUtils jwtUtils;
 	private final JavaMailSender emailSender;
@@ -185,10 +187,17 @@ public class ZenxlAuthService {
 	public UserResponse adminRegistration(@Valid SignUpRequest request) {
 
 		if (userRepository.findAll().isEmpty()) {
+			
 
-			if (request.getRole().equals("ROLE_ADMIN")) {
-
-				Role role = Role.builder().roleName(request.getRole()).build();
+			String requestedRole = request.getRole();
+			if (!requestedRole.startsWith("ROLE_")) {
+				requestedRole = "ROLE_"+requestedRole.toUpperCase();
+			}
+			
+			if (requestedRole.equals("ROLE_ADMIN")) {
+				
+				Role role = roleRepository.findByRoleName(requestedRole)
+						.orElse(Role.builder().roleName(requestedRole).build());
 
 				User user = User.builder().username(request.getUsername()).email(request.getEmail())
 						.dateOfBirth(request.getDateOfBirth()).gender(request.getGender())

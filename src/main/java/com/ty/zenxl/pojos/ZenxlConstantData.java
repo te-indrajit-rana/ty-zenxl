@@ -30,7 +30,7 @@ public class ZenxlConstantData {
 	public static final String USERNAME_ALREADY_EXISTS = "Username already exists.";
 	public static final String INCORRECT_EMAIL_AND_PASSWORD = "Incorrect email and password.";
 	public static final String ONLY_REGISTERED_ADMIN_CAN_ADD_USERS = "Only registered admin can add users.";
-	public static final String THE_FIRST_REGISTERED_USER_MUST_BE_ADMIN_ONLY = "The First Registered User Must Be Admin Only";
+	public static final String THE_FIRST_REGISTERED_USER_MUST_BE_ADMIN_ONLY = "The First Requested User For Registration Must Be An Admin Only";
 
 	public static final String ACCOUNT_IS_CURRENTLY_LOCKED = "Account is currently locked.";
 	public static final String ACCOUNT_IS_CURRENTLY_INACTIVE = "Account is currently inactive.";

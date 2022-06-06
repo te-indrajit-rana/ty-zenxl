@@ -56,8 +56,13 @@ public class ZenxlUserService {
 			throw new UserPersistenceException(EMAIL_ALREADY_EXISTS);
 		}
 
-		Role role = roleRepository.findByRoleName(request.getRole())
-				.orElse(Role.builder().roleName(request.getRole()).build());
+		String requestedRole = request.getRole();
+		if (!requestedRole.startsWith("ROLE_")) {
+			requestedRole = "ROLE_"+requestedRole.toUpperCase();
+		}
+		
+		Role role = roleRepository.findByRoleName(requestedRole)
+				.orElse(Role.builder().roleName(requestedRole).build());
 
 		User user = User.builder().username(request.getUsername()).email(request.getEmail())
 				.dateOfBirth(request.getDateOfBirth()).gender(request.getGender())
