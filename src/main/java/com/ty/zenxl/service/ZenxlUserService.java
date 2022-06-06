@@ -89,15 +89,23 @@ public class ZenxlUserService {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new UserNotFoundException("User not found with user id " + userId));
 
-		if (Boolean.TRUE.equals(userRepository.existsByUsername(request.getUsername()))) {
-			throw new UserPersistenceException(USERNAME_ALREADY_EXISTS);
-		}
-		if (Boolean.TRUE.equals(userRepository.existsByEmail(request.getEmail()))) {
-			throw new UserPersistenceException(EMAIL_ALREADY_EXISTS);
+		if (!request.getUsername().equals(user.getUsername())) {
+			if (Boolean.TRUE.equals(userRepository.existsByUsername(request.getUsername()))) {
+				throw new UserPersistenceException(USERNAME_ALREADY_EXISTS);
+			}
+			if (!request.getEmail().equals(user.getEmail())) {
+				if (Boolean.TRUE.equals(userRepository.existsByEmail(request.getEmail()))) {
+					throw new UserPersistenceException(EMAIL_ALREADY_EXISTS);
+				}
+			}
 		}
 
-		Role role = roleRepository.findByRoleName(request.getRole())
-				.orElse(Role.builder().roleName(request.getRole()).build());
+		String requestedRole = request.getRole();
+		if (!requestedRole.startsWith("ROLE_")) {
+			requestedRole = "ROLE_" + requestedRole.toUpperCase();
+		}
+		Role role = roleRepository.findByRoleName(requestedRole)
+				.orElse(Role.builder().roleName(requestedRole).build());
 
 		user.setUsername(request.getUsername());
 		user.setEmail(request.getEmail());
