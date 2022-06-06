@@ -12,12 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ty.zenxl.pojos.ZenxlResponseBody;
@@ -61,16 +60,16 @@ public class ZenxlUserController {
 		return ResponseEntity.ok(zenxlUserService.findAllUsers());
 	}
 	
-	@PutMapping("/update-user/{userId}")
-	public ResponseEntity<ZenxlResponseBody> updateUser(@PathVariable int userId,@Valid @RequestBody UpdateUserRequest request){
+	@PutMapping("/update-user")
+	public ResponseEntity<ZenxlResponseBody> updateUser(@RequestHeader int userId,@Valid @RequestBody UpdateUserRequest request){
 		
 		String updateUserMessage = zenxlUserService.updateUser(userId,request);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(updateUserMessage).build();
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
 	
-	@DeleteMapping("/delete-user/{userId}")
-	public ResponseEntity<ZenxlResponseBody> deleteUser(@PathVariable int userId){
+	@DeleteMapping("/delete-user")
+	public ResponseEntity<ZenxlResponseBody> deleteUser(@RequestHeader int userId){
 		
 		String deleteUserMessage = zenxlUserService.deleteUser(userId);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteUserMessage).build();
@@ -78,7 +77,7 @@ public class ZenxlUserController {
 	}
 	
 	@PutMapping("/change-user-status")
-	public ResponseEntity<ZenxlResponseBody> setUserStatus(@RequestParam String username, @RequestParam boolean status) {
+	public ResponseEntity<ZenxlResponseBody> setUserStatus(@RequestHeader String username, @RequestHeader boolean status) {
 		
 		String setUserStatusMessage = zenxlUserService.setUserStatus(username,status);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(setUserStatusMessage).build();

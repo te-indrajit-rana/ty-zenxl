@@ -12,10 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -75,8 +75,8 @@ public class ZenxlUtilityController {
 		return ResponseEntity.ok(zenxlUtilityService.findAllCertificates());
 	}
 
-	@PutMapping("/update-certificate/{certificateId}")
-	public ResponseEntity<ZenxlResponseBody> updateCertificate(@PathVariable int certificateId,
+	@PutMapping("/update-certificate")
+	public ResponseEntity<ZenxlResponseBody> updateCertificate(@RequestHeader int certificateId,
 			@Valid @RequestBody UpdateCertificateRequest request) {
 		
 		String updateCertificateMessage = zenxlUtilityService.updateCertificate(certificateId, request);
@@ -84,8 +84,8 @@ public class ZenxlUtilityController {
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
 
-	@DeleteMapping("/delete-certificate/{certificateId}")
-	public ResponseEntity<ZenxlResponseBody> deleteCertificate(@PathVariable int certificateId) {
+	@DeleteMapping("/delete-certificate")
+	public ResponseEntity<ZenxlResponseBody> deleteCertificate(@RequestHeader int certificateId) {
 		
 		String deleteCertificateMessage = zenxlUtilityService.deleteCertificate(certificateId);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteCertificateMessage).build();
@@ -108,8 +108,8 @@ public class ZenxlUtilityController {
 		return ResponseEntity.ok(zenxlUtilityService.findAllCodes());
 	}
 
-	@PutMapping("/update-code/{codeId}")
-	public ResponseEntity<ZenxlResponseBody> updateCode(@PathVariable int codeId,
+	@PutMapping("/update-code")
+	public ResponseEntity<ZenxlResponseBody> updateCode(@RequestHeader int codeId,
 			@Valid @RequestBody UpdateCodeRequest request) {
 		
 		String updateCodeMessage = zenxlUtilityService.updateCode(codeId, request);
@@ -117,8 +117,8 @@ public class ZenxlUtilityController {
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
 
-	@DeleteMapping("/delete-code/{codeId}")
-	public ResponseEntity<ZenxlResponseBody> deleteCode(@PathVariable int codeId) {
+	@DeleteMapping("/delete-code")
+	public ResponseEntity<ZenxlResponseBody> deleteCode(@RequestHeader int codeId) {
 		
 		String deleteCodeMessage = zenxlUtilityService.deleteCode(codeId);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteCodeMessage).build();
@@ -140,8 +140,8 @@ public class ZenxlUtilityController {
 		return ResponseEntity.ok(zenxlUtilityService.findAllIncoterms());
 	}
 
-	@PutMapping("/update-incoterm/{incotermId}")
-	public ResponseEntity<ZenxlResponseBody> updateIncoterm(@PathVariable int incotermId,
+	@PutMapping("/update-incoterm")
+	public ResponseEntity<ZenxlResponseBody> updateIncoterm(@RequestHeader int incotermId,
 			@Valid @RequestBody UpdateIncotermRequest request) {
 		
 		String updateIncotermMessage = zenxlUtilityService.updateIncoterm(incotermId, request);
@@ -149,8 +149,8 @@ public class ZenxlUtilityController {
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
 
-	@DeleteMapping("/delete-incoterm/{incotermId}")
-	public ResponseEntity<ZenxlResponseBody> deleteIncoterm(@PathVariable int incotermId) {
+	@DeleteMapping("/delete-incoterm")
+	public ResponseEntity<ZenxlResponseBody> deleteIncoterm(@RequestHeader int incotermId) {
 		
 		String deleteIncotermMessage = zenxlUtilityService.deleteIncoterm(incotermId);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteIncotermMessage).build();
@@ -172,8 +172,8 @@ public class ZenxlUtilityController {
 		return ResponseEntity.ok(zenxlUtilityService.findAllInspections());
 	}
 
-	@PutMapping("/update-inspection/{inspectionId}")
-	public ResponseEntity<ZenxlResponseBody> updateInspection(@PathVariable int inspectionId,
+	@PutMapping("/update-inspection")
+	public ResponseEntity<ZenxlResponseBody> updateInspection(@RequestHeader int inspectionId,
 			@Valid @RequestBody UpdateInspectionRequest request) {
 		
 		String updateInspectionMessage = zenxlUtilityService.updateInspection(inspectionId, request);
@@ -181,8 +181,8 @@ public class ZenxlUtilityController {
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
 
-	@DeleteMapping("/delete-inspection/{inspectionId}")
-	public ResponseEntity<ZenxlResponseBody> deleteInspection(@PathVariable int inspectionId) {
+	@DeleteMapping("/delete-inspection")
+	public ResponseEntity<ZenxlResponseBody> deleteInspection(@RequestHeader int inspectionId) {
 		
 		String deleteInspectionMessage = zenxlUtilityService.deleteInspection(inspectionId);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteInspectionMessage).build();
@@ -204,8 +204,8 @@ public class ZenxlUtilityController {
 			return ResponseEntity.ok(zenxlUtilityService.findAllHsCodes());
 		}
 
-		@PutMapping("/update-hscode/{hsCodeId}")
-		public ResponseEntity<ZenxlResponseBody> updateHscode(@PathVariable int hsCodeId,
+		@PutMapping("/update-hscode")
+		public ResponseEntity<ZenxlResponseBody> updateHscode(@RequestHeader int hsCodeId,
 				@Valid @RequestBody UpdateHsCodeRequest request) {
 			
 			String updateHsCodeMessage = zenxlUtilityService.updateHsCode(hsCodeId, request);
@@ -213,8 +213,8 @@ public class ZenxlUtilityController {
 			return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 		}
 
-		@DeleteMapping("/delete-hscode/{hsCodeId}")
-		public ResponseEntity<ZenxlResponseBody> deleteHsCode(@PathVariable int hsCodeId) {
+		@DeleteMapping("/delete-hscode")
+		public ResponseEntity<ZenxlResponseBody> deleteHsCode(@RequestHeader int hsCodeId) {
 			
 			String deleteHsCodeMessage = zenxlUtilityService.deleteHsCode(hsCodeId);
 			ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteHsCodeMessage).build();

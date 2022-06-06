@@ -9,8 +9,8 @@ spring:
     show-sql: true
   mail:
     host: smtp.gmail.com
-    username: www.indrajit55@gmail.com
-    password: rsygyoxhxdqwxpyz
+    username: zenxldemo@gmail.com
+    password: raqjzbiihysejitr
     port: 587
     properties:
       mail:

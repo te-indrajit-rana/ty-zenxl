@@ -12,10 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -57,8 +57,8 @@ public class ZenxlCustomerController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(zenxlResponseBody);
 	}
 
-	@GetMapping("/view-customer/{customerId}")
-	public ResponseEntity<ViewCustomerResponse> viewCustomer(@PathVariable int customerId) {
+	@GetMapping("/view-customer")
+	public ResponseEntity<ViewCustomerResponse> viewCustomer(@RequestHeader int customerId) {
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlCustomerService.viewCustomer(customerId));
 	}
 
@@ -67,8 +67,8 @@ public class ZenxlCustomerController {
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlCustomerService.findAllCustomers());
 	}
 
-	@PutMapping("/update-customer/{customerId}")
-	public ResponseEntity<ZenxlResponseBody> updateCustomer(@PathVariable int customerId,
+	@PutMapping("/update-customer")
+	public ResponseEntity<ZenxlResponseBody> updateCustomer(@RequestHeader int customerId,
 			@Valid @RequestBody UpdateCustomerRequest request) {
 		
 		String updateCustomerMessage = zenxlCustomerService.updateCustomer(customerId, request);
@@ -76,8 +76,8 @@ public class ZenxlCustomerController {
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
 
-	@DeleteMapping("/delete-customer/{customerId}")
-	public ResponseEntity<ZenxlResponseBody> deleteCustomer(@PathVariable int customerId) {
+	@DeleteMapping("/delete-customer")
+	public ResponseEntity<ZenxlResponseBody> deleteCustomer(@RequestHeader int customerId) {
 		
 		String deleteCustomerMessage = zenxlCustomerService.deleteCustomer(customerId);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteCustomerMessage).build();

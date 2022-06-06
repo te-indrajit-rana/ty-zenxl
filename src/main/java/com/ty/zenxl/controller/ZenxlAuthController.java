@@ -11,10 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -68,8 +68,8 @@ public class ZenxlAuthController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(zenxlResponseBody);
 	}
 
-	@GetMapping("/forgot-password/email/{email}")
-	public ResponseEntity<ZenxlResponseBody> forgotPassword(@PathVariable String email) {
+	@GetMapping("/forgot-password")
+	public ResponseEntity<ZenxlResponseBody> forgotPassword(@RequestHeader String email) {
 		
 		String forgotPasswordMessage = zenxlAuthService.forgotPassword(email);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE)
@@ -77,8 +77,8 @@ public class ZenxlAuthController {
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
 
-	@PutMapping("/change-password/email/{email}")
-	public ResponseEntity<ZenxlResponseBody> changePassword(@PathVariable String email,
+	@PutMapping("/change-password")
+	public ResponseEntity<ZenxlResponseBody> changePassword(@RequestHeader String email,
 			@Valid @RequestBody ChangePasswordRequest request) {
 		
 		String changePasswordMessage = zenxlAuthService.changePassword(email, request);
