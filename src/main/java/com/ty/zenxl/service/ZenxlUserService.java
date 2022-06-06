@@ -115,9 +115,9 @@ public class ZenxlUserService {
 		return DELETED_SUCCESSFULLY;
 	}
 
-	public String setUserStatus(String username, boolean status) {
-		User user = userRepository.findByUsername(username)
-				.orElseThrow(() -> new UserNotFoundException("User not found with username " + username));
+	public String setUserStatus(int userId, boolean status) {
+		User user = userRepository.findByUserId(userId)
+				.orElseThrow(() -> new UserNotFoundException("User not found with userId " + userId));
 		user.setActive(status);
 		User updatedUser = userRepository.save(user);
 		if (updatedUser == null) {

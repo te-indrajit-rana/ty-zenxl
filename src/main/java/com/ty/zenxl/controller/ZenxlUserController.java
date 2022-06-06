@@ -77,9 +77,9 @@ public class ZenxlUserController {
 	}
 	
 	@PutMapping("/change-user-status")
-	public ResponseEntity<ZenxlResponseBody> setUserStatus(@RequestHeader String username, @RequestHeader boolean status) {
+	public ResponseEntity<ZenxlResponseBody> setUserStatus(@RequestHeader int userId, @RequestHeader boolean status) {
 		
-		String setUserStatusMessage = zenxlUserService.setUserStatus(username,status);
+		String setUserStatusMessage = zenxlUserService.setUserStatus(userId,status);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(setUserStatusMessage).build();
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
