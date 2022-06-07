@@ -41,12 +41,13 @@ public class ZenxlStatusService {
 
 	public StatusResponse addStatus(StatusRequest request) {
 
+		String statusCatagory = request.getStatusCatagory().toUpperCase();
 		if (Boolean.TRUE.equals(statusRepository.existsByStatusNameAndStatusCatagory(request.getStatusName(),
-				request.getStatusCatagory()))) {
+				statusCatagory))) {
 			throw new StatusPersistenceException(STATUS_ALEADY_EXISTS_WITH_THE_MENTIONED_STATUS_CATAGORY);
 		}
 
-		Status status = Status.builder().statusName(request.getStatusName()).statusCatagory(request.getStatusCatagory())
+		Status status = Status.builder().statusName(request.getStatusName()).statusCatagory(statusCatagory)
 				.description(request.getDescription()).isActive(true).build();
 
 		Status savedStatus = statusRepository.save(status);
@@ -92,17 +93,17 @@ public class ZenxlStatusService {
 	}
 	
 	public String updateStatus(String statusName, String statusCatagory, UpdateStatusRequest request) {
-
-		Status status = statusRepository.findByStatusNameAndStatusCatagory(statusName, statusCatagory)
+		
+		Status status = statusRepository.findByStatusNameAndStatusCatagory(statusName, statusCatagory.toUpperCase())
 				.orElseThrow(() -> new StatusNotFoundException(STATUS_NOT_FOUND));
 		
-		if (statusRepository.existsByStatusNameAndStatusCatagory(request.getStatusName(), request.getStatusCatagory())) {
+		if (statusRepository.existsByStatusNameAndStatusCatagory(request.getStatusName(), request.getStatusCatagory().toUpperCase())) {
 			throw new UpdateException(STATUS_ALEADY_EXISTS_WITH_THE_MENTIONED_STATUS_CATAGORY);
 		}
 
 		status.setStatusName(request.getStatusName());
 		status.setDescription(request.getDescription());
-		status.setStatusCatagory(statusCatagory);
+		status.setStatusCatagory(request.getStatusCatagory().toUpperCase());
 
 		Status updatedStatus = statusRepository.save(status);
 		if (updatedStatus != null) {
@@ -112,9 +113,9 @@ public class ZenxlStatusService {
 	}
 
 	public String deleteStatus(String statusName, String statusCatagory) {
-		Status status = statusRepository.findByStatusNameAndStatusCatagory(statusName, statusCatagory)
+		Status status = statusRepository.findByStatusNameAndStatusCatagory(statusName, statusCatagory.toUpperCase())
 				.orElseThrow(() -> new StatusNotFoundException(
-						"Status not found with status name " + statusName + "status catagory" + statusCatagory));
+						"Status not found with status name " + statusName + "status catagory" + statusCatagory.toUpperCase()));
 
 		statusRepository.delete(status);
 		return DELETED_SUCCESSFULLY;
@@ -122,9 +123,9 @@ public class ZenxlStatusService {
 
 	public String setStatus(String statusName, String statusCatagory, boolean isActive) {
 
-		Status status = statusRepository.findByStatusNameAndStatusCatagory(statusName, statusCatagory)
+		Status status = statusRepository.findByStatusNameAndStatusCatagory(statusName, statusCatagory.toUpperCase())
 				.orElseThrow(() -> new StatusNotFoundException(
-						"Status not found with status name " + statusName + "status catagory" + statusCatagory));
+						"Status not found with status name " + statusName + "status catagory" + statusCatagory.toUpperCase()));
 
 		status.setActive(isActive);
 		Status updatedStatus = statusRepository.save(status);
@@ -136,7 +137,7 @@ public class ZenxlStatusService {
 
 	public ViewStatusResponse viewStatus(String statusName,String statusCatagory) {
 		
-		Status status = statusRepository.findByStatusNameAndStatusCatagory(statusName,statusCatagory)
+		Status status = statusRepository.findByStatusNameAndStatusCatagory(statusName,statusCatagory.toUpperCase())
 				.orElseThrow(() -> new StatusNotFoundException(STATUS_NOT_FOUND));
 		ViewStatusResponse viewStatusResponse = ViewStatusResponse.builder()
 				.statusCatagory(status.getStatusCatagory()).statusName(status.getStatusName())
