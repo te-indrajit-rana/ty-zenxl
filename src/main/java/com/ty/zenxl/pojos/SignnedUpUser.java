@@ -1,4 +1,4 @@
-package com.ty.zenxl.response;
+package com.ty.zenxl.pojos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Represents the response DTO for {@code User}
+ * Represents the response DTO for successful signed up {@code User} to the application.
  *  
  * @author Indrajit
  * @version 1.0
@@ -19,12 +19,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(Include.NON_DEFAULT)
-public class UserResponse {
-	
+@JsonInclude(Include.NON_NULL)
+public class SignnedUpUser {
+
 	private int userId;
 	private String username;
-	private String email;
-	private String role;
-	private boolean status;
 }

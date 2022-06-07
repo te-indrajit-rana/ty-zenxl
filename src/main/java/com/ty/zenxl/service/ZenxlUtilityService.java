@@ -1,12 +1,6 @@
 package com.ty.zenxl.service;
 
-import static com.ty.zenxl.pojos.ZenxlConstantData.CERTIFICATE_ALREADY_EXISTS;
-import static com.ty.zenxl.pojos.ZenxlConstantData.CODE_ALREADY_EXISTS;
-import static com.ty.zenxl.pojos.ZenxlConstantData.DELETED_SUCCESSFULLY;
-import static com.ty.zenxl.pojos.ZenxlConstantData.INCOTERM_ALREADY_EXISTS;
-import static com.ty.zenxl.pojos.ZenxlConstantData.INSPECTION_ALREADY_EXISTS;
-import static com.ty.zenxl.pojos.ZenxlConstantData.SOMETHING_WENT_WRONG;
-import static com.ty.zenxl.pojos.ZenxlConstantData.UPDATED_SUCCESSFULLY;
+import static com.ty.zenxl.pojos.ZenxlConstantData.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -93,8 +87,9 @@ public class ZenxlUtilityService {
 	public List<CertificateResponse> findAllCertificates() {
 
 		List<Certificate> findAllCertificates = certificateRepository.findAll();
-		return findAllCertificates.stream().map(
-				certificate -> CertificateResponse.builder().certificateId(certificate.getCertificateId()).certificateType(certificate.getCertificateType()).build())
+		return findAllCertificates.stream()
+				.map(certificate -> CertificateResponse.builder().certificateId(certificate.getCertificateId())
+						.certificateType(certificate.getCertificateType()).build())
 				.collect(Collectors.toList());
 	}
 
@@ -102,6 +97,12 @@ public class ZenxlUtilityService {
 
 		Certificate certificate = certificateRepository.findByCertificateId(certificateId).orElseThrow(
 				() -> new CertificateNotFoundException("Certificate not found with certificate id " + certificateId));
+
+		if (!request.getCertificateType().equals(certificate.getCertificateType())) {
+			if (Boolean.TRUE.equals(certificateRepository.existsByCertificateType(request.getCertificateType()))) {
+				throw new CertificatePersistenceException(CERTIFICATE_ALREADY_EXISTS);
+			}
+		}
 
 		certificate.setCertificateType(request.getCertificateType());
 		Certificate updatedCertificate = certificateRepository.save(certificate);
@@ -136,13 +137,20 @@ public class ZenxlUtilityService {
 	public List<CodeResponse> findAllCodes() {
 
 		List<Code> findAllCodes = codeRepository.findAll();
-		return findAllCodes.stream().map(code -> CodeResponse.builder().codeId(code.getCodeId()).codeType(code.getCodeType()).build())
+		return findAllCodes.stream()
+				.map(code -> CodeResponse.builder().codeId(code.getCodeId()).codeType(code.getCodeType()).build())
 				.collect(Collectors.toList());
 	}
 
 	public String updateCode(int codeId, UpdateCodeRequest request) {
 		Code code = codeRepository.findByCodeId(codeId)
 				.orElseThrow(() -> new CodeNotFoundException("Code not found with code id " + codeId));
+
+		if (!request.getCodeType().equals(code.getCodeType())) {
+			if (Boolean.TRUE.equals(codeRepository.existsByCodeType(request.getCodeType()))) {
+				throw new CodePersistenceException(CODE_ALREADY_EXISTS);
+			}
+		}
 
 		code.setCodeType(request.getCodeType());
 		Code updatedCode = codeRepository.save(code);
@@ -168,21 +176,27 @@ public class ZenxlUtilityService {
 		Incoterm incoterm = Incoterm.builder().incotermType(request.getIncotermType()).build();
 		Incoterm savedIncoterm = incotermRepository.save(incoterm);
 		if (savedIncoterm != null) {
-			return IncotermResponse.builder().incotermId(savedIncoterm.getIncotermId()).incotermType(savedIncoterm.getIncotermType()).build();
+			return IncotermResponse.builder().incotermId(savedIncoterm.getIncotermId())
+					.incotermType(savedIncoterm.getIncotermType()).build();
 		}
 		throw new IncotermPersistenceException(SOMETHING_WENT_WRONG);
 	}
 
 	public List<IncotermResponse> findAllIncoterms() {
 		List<Incoterm> findAllIncoterms = incotermRepository.findAll();
-		return findAllIncoterms.stream()
-				.map(incoterm -> IncotermResponse.builder().incotermId(incoterm.getIncotermId()).incotermType(incoterm.getIncotermType()).build())
-				.collect(Collectors.toList());
+		return findAllIncoterms.stream().map(incoterm -> IncotermResponse.builder().incotermId(incoterm.getIncotermId())
+				.incotermType(incoterm.getIncotermType()).build()).collect(Collectors.toList());
 	}
 
 	public String updateIncoterm(int incotermId, @Valid UpdateIncotermRequest request) {
 		Incoterm incoterm = incotermRepository.findByIncotermId(incotermId)
 				.orElseThrow(() -> new IncotermNotFoundException("Incoterm not found with incoterm id " + incotermId));
+
+		if (!request.getIncotermType().equals(incoterm.getIncotermType())) {
+			if (Boolean.TRUE.equals(incotermRepository.existsByIncotermType(request.getIncotermType()))) {
+				throw new IncotermPersistenceException(INCOTERM_ALREADY_EXISTS);
+			}
+		}
 
 		incoterm.setIncotermType(request.getIncotermType());
 		Incoterm updatedIncoterm = incotermRepository.save(incoterm);
@@ -208,21 +222,28 @@ public class ZenxlUtilityService {
 		Inspection inspection = Inspection.builder().inspectionType(request.getInspectionType()).build();
 		Inspection savedInspection = inspectionRepository.save(inspection);
 		if (savedInspection != null) {
-			return InspectionResponse.builder().inspectionId(savedInspection.getInspectionId()).inspectionType(savedInspection.getInspectionType()).build();
+			return InspectionResponse.builder().inspectionId(savedInspection.getInspectionId())
+					.inspectionType(savedInspection.getInspectionType()).build();
 		}
 		throw new InspectionPersistenceException(SOMETHING_WENT_WRONG);
 	}
 
 	public List<InspectionResponse> findAllInspections() {
 		List<Inspection> findAllInspections = inspectionRepository.findAll();
-		return findAllInspections.stream()
-				.map(inspection -> InspectionResponse.builder().inspectionId(inspection.getInspectionId()).inspectionType(inspection.getInspectionType()).build())
+		return findAllInspections.stream().map(inspection -> InspectionResponse.builder()
+				.inspectionId(inspection.getInspectionId()).inspectionType(inspection.getInspectionType()).build())
 				.collect(Collectors.toList());
 	}
 
 	public String updateInspection(int inspectionId, UpdateInspectionRequest request) {
 		Inspection inspection = inspectionRepository.findByInspectionId(inspectionId).orElseThrow(
 				() -> new InspectionNotFoundException("Inspection not found with inspection id " + inspectionId));
+
+		if (!request.getInspectionType().equals(inspection.getInspectionType())) {
+			if (Boolean.TRUE.equals(inspectionRepository.existsByInspectionType(request.getInspectionType()))) {
+				throw new InspectionPersistenceException(INSPECTION_ALREADY_EXISTS);
+			}
+		}
 
 		inspection.setInspectionType(request.getInspectionType());
 		Inspection updatedInspection = inspectionRepository.save(inspection);
@@ -240,29 +261,35 @@ public class ZenxlUtilityService {
 	}
 
 	// hscode crud api logics
-	
+
 	public HsCodeResponse addHsCode(HsCodeRequest request) {
 		if (Boolean.TRUE.equals(hsCodeRepository.existsByHsCodeType(request.getHsCodeType()))) {
-			throw new HsCodePersistenceException("HsCode Already Exists");
+			throw new HsCodePersistenceException(HS_CODE_ALREADY_EXISTS);
 		}
 		HsCode hsCode = HsCode.builder().hsCodeType(request.getHsCodeType()).build();
 		HsCode savedHsCode = hsCodeRepository.save(hsCode);
 		if (savedHsCode != null) {
-			return HsCodeResponse.builder().hsCodeId(savedHsCode.getHsCodeId()).hsCodeType(savedHsCode.getHsCodeType()).build();
+			return HsCodeResponse.builder().hsCodeId(savedHsCode.getHsCodeId()).hsCodeType(savedHsCode.getHsCodeType())
+					.build();
 		}
 		throw new HsCodePersistenceException(SOMETHING_WENT_WRONG);
 	}
 
 	public List<HsCodeResponse> findAllHsCodes() {
 		List<HsCode> findAllHsCodes = hsCodeRepository.findAll();
-		return findAllHsCodes.stream()
-				.map(hsCode -> HsCodeResponse.builder().hsCodeId(hsCode.getHsCodeId()).hsCodeType(hsCode.getHsCodeType()).build())
-				.collect(Collectors.toList());
+		return findAllHsCodes.stream().map(hsCode -> HsCodeResponse.builder().hsCodeId(hsCode.getHsCodeId())
+				.hsCodeType(hsCode.getHsCodeType()).build()).collect(Collectors.toList());
 	}
 
 	public String updateHsCode(int hsCodeId, @Valid UpdateHsCodeRequest request) {
-		HsCode hsCode = hsCodeRepository.findByHsCodeId(hsCodeId).orElseThrow(
-				() -> new HsCodeNotFoundException("HsCode not found with hsCode id " + hsCodeId));
+		HsCode hsCode = hsCodeRepository.findByHsCodeId(hsCodeId)
+				.orElseThrow(() -> new HsCodeNotFoundException("HsCode not found with hsCode id " + hsCodeId));
+
+		if (!request.getHsCodeType().equals(hsCode.getHsCodeType())) {
+			if (Boolean.TRUE.equals(hsCodeRepository.existsByHsCodeType(request.getHsCodeType()))) {
+				throw new HsCodePersistenceException(HS_CODE_ALREADY_EXISTS);
+			}
+		}
 
 		hsCode.setHsCodeType(request.getHsCodeType());
 		HsCode updatedHsCode = hsCodeRepository.save(hsCode);
@@ -273,8 +300,8 @@ public class ZenxlUtilityService {
 	}
 
 	public String deleteHsCode(int hsCodeId) {
-		HsCode hsCode = hsCodeRepository.findByHsCodeId(hsCodeId).orElseThrow(
-				() -> new HsCodeNotFoundException("HsCode not found with hsCode id " + hsCodeId));
+		HsCode hsCode = hsCodeRepository.findByHsCodeId(hsCodeId)
+				.orElseThrow(() -> new HsCodeNotFoundException("HsCode not found with hsCode id " + hsCodeId));
 		hsCodeRepository.deleteHsCode(hsCode.getHsCodeId());
 		return DELETED_SUCCESSFULLY;
 	}

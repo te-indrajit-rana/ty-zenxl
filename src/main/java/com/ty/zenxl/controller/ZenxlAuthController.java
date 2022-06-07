@@ -4,6 +4,7 @@ import static com.ty.zenxl.pojos.ZenxlConstantData.IS_ERROR_FALSE;
 import static com.ty.zenxl.pojos.ZenxlConstantData.LOGIN_SUCCESSFUL;
 import static com.ty.zenxl.pojos.ZenxlConstantData.SIGN_UP_SUCCESSFUL;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -69,9 +70,9 @@ public class ZenxlAuthController {
 	}
 
 	@GetMapping("/forgot-password")
-	public ResponseEntity<ZenxlResponseBody> forgotPassword(@RequestHeader String email) {
+	public ResponseEntity<ZenxlResponseBody> forgotPassword(@RequestHeader String email,HttpServletRequest request) {
 		
-		String forgotPasswordMessage = zenxlAuthService.forgotPassword(email);
+		String forgotPasswordMessage = zenxlAuthService.forgotPassword(email,request);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE)
 				.message(forgotPasswordMessage).build();
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);

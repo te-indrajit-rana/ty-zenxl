@@ -69,6 +69,11 @@ public class ZenxlStatusController {
 		return ResponseEntity.ok(zenxlStatusService.findAllStatuses());
 	}
 
+	@GetMapping("/find-all-status-catagories")
+	public ResponseEntity<List<String>> findAllStatuseCatagories() {
+		return ResponseEntity.ok(zenxlStatusService.findAllStatuseCatagories());
+	}
+	
 	@PutMapping("/update-status")
 	public ResponseEntity<ZenxlResponseBody> updateStatus(@RequestHeader String statusName,
 			@RequestHeader String statusCatagory, @Valid @RequestBody UpdateStatusRequest request) {

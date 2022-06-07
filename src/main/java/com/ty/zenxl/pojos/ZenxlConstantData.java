@@ -52,6 +52,7 @@ public class ZenxlConstantData {
 	public static final String CERTIFICATE_ALREADY_EXISTS = "Certificate already exists";
 	public static final String INCOTERM_ALREADY_EXISTS = "Incoterm already exists";
 	public static final String INSPECTION_ALREADY_EXISTS = "Inspection already exists";
+	public static final String HS_CODE_ALREADY_EXISTS = "HsCode Already Exists";
 
 	public static final boolean IS_ERROR_FALSE = false;
 	public static final boolean IS_ERROR_TRUE = true;

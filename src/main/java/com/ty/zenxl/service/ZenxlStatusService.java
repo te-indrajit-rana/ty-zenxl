@@ -1,12 +1,6 @@
 package com.ty.zenxl.service;
 
-import static com.ty.zenxl.pojos.ZenxlConstantData.DELETED_SUCCESSFULLY;
-import static com.ty.zenxl.pojos.ZenxlConstantData.SOMETHING_WENT_WRONG;
-import static com.ty.zenxl.pojos.ZenxlConstantData.STATUS_ALEADY_EXISTS_WITH_THE_MENTIONED_STATUS_CATAGORY;
-import static com.ty.zenxl.pojos.ZenxlConstantData.STATUS_CHANGED_SUCCESSFULLY;
-import static com.ty.zenxl.pojos.ZenxlConstantData.STATUS_NOT_FOUND;
-import static com.ty.zenxl.pojos.ZenxlConstantData.UNABLE_TO_CHANGE_USER_STATUS;
-import static com.ty.zenxl.pojos.ZenxlConstantData.UPDATED_SUCCESSFULLY;
+import static com.ty.zenxl.pojos.ZenxlConstantData.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +86,11 @@ public class ZenxlStatusService {
 		return listOfStatusCatagoryResponses;
 	}
 
+	public List<String> findAllStatuseCatagories() {
+		return statusRepository.findAll().stream().map(status -> status.getStatusCatagory()).distinct()
+				.collect(Collectors.toList());
+	}
+	
 	public String updateStatus(String statusName, String statusCatagory, UpdateStatusRequest request) {
 
 		Status status = statusRepository.findByStatusNameAndStatusCatagory(statusName, statusCatagory)
@@ -145,4 +144,5 @@ public class ZenxlStatusService {
 
 		return viewStatusResponse;
 	}
+
 }

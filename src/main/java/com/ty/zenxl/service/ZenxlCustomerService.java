@@ -1,9 +1,6 @@
 package com.ty.zenxl.service;
 
-import static com.ty.zenxl.pojos.ZenxlConstantData.CUSTOMER_ALREADY_EXISTS;
-import static com.ty.zenxl.pojos.ZenxlConstantData.DELETED_SUCCESSFULLY;
-import static com.ty.zenxl.pojos.ZenxlConstantData.SOMETHING_WENT_WRONG;
-import static com.ty.zenxl.pojos.ZenxlConstantData.UPDATED_SUCCESSFULLY;
+import static com.ty.zenxl.pojos.ZenxlConstantData.*;
 
 import java.util.List;
 import java.util.stream.Collectors;

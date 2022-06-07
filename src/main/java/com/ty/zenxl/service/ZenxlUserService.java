@@ -1,13 +1,6 @@
 package com.ty.zenxl.service;
 
-import static com.ty.zenxl.pojos.ZenxlConstantData.DELETED_SUCCESSFULLY;
-import static com.ty.zenxl.pojos.ZenxlConstantData.EMAIL_ALREADY_EXISTS;
-import static com.ty.zenxl.pojos.ZenxlConstantData.SIGN_UP_UNSUCCESSFUL;
-import static com.ty.zenxl.pojos.ZenxlConstantData.SOMETHING_WENT_WRONG;
-import static com.ty.zenxl.pojos.ZenxlConstantData.UNABLE_TO_CHANGE_USER_STATUS;
-import static com.ty.zenxl.pojos.ZenxlConstantData.UPDATED_SUCCESSFULLY;
-import static com.ty.zenxl.pojos.ZenxlConstantData.USERNAME_ALREADY_EXISTS;
-import static com.ty.zenxl.pojos.ZenxlConstantData.USER_STATUS_CHANGED_SUCCESSFULLY;
+import static com.ty.zenxl.pojos.ZenxlConstantData.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,7 +26,7 @@ import com.ty.zenxl.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Defines the mechanisms implemented for CRUD opeartions for a {@code User}. 
+ * Defines the mechanisms implemented for CRUD opeartions for a {@code User}.
  *
  * @author Indrajit
  * @version 1.0
@@ -58,11 +51,10 @@ public class ZenxlUserService {
 
 		String requestedRole = request.getRole();
 		if (!requestedRole.startsWith("ROLE_")) {
-			requestedRole = "ROLE_"+requestedRole.toUpperCase();
+			requestedRole = "ROLE_" + requestedRole.toUpperCase();
 		}
-		
-		Role role = roleRepository.findByRoleName(requestedRole)
-				.orElse(Role.builder().roleName(requestedRole).build());
+
+		Role role = roleRepository.findByRoleName(requestedRole).orElse(Role.builder().roleName(requestedRole).build());
 
 		User user = User.builder().username(request.getUsername()).email(request.getEmail())
 				.dateOfBirth(request.getDateOfBirth()).gender(request.getGender())
@@ -80,8 +72,8 @@ public class ZenxlUserService {
 	public List<UserResponse> findAllUsers() {
 		List<User> findAllUsers = userRepository.findAll();
 		return findAllUsers.stream()
-				.map(user -> UserResponse.builder().userId(user.getUserId()).username(user.getUsername()).email(user.getEmail())
-						.role(user.getRole().getRoleName()).status(user.isActive()).build())
+				.map(user -> UserResponse.builder().userId(user.getUserId()).username(user.getUsername())
+						.email(user.getEmail()).role(user.getRole().getRoleName()).status(user.isActive()).build())
 				.collect(Collectors.toList());
 	}
 

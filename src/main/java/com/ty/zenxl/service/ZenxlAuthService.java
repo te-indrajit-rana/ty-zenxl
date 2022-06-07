@@ -1,20 +1,7 @@
 
 package com.ty.zenxl.service;
 
-import static com.ty.zenxl.pojos.ZenxlConstantData.ACCOUNT_IS_CURRENTLY_INACTIVE;
-import static com.ty.zenxl.pojos.ZenxlConstantData.ACCOUNT_IS_CURRENTLY_LOCKED;
-import static com.ty.zenxl.pojos.ZenxlConstantData.BOTH_PASSWORDS_SHOULD_BE_SAME;
-import static com.ty.zenxl.pojos.ZenxlConstantData.ENTERED_PASSCODE_NOT_VALID;
-import static com.ty.zenxl.pojos.ZenxlConstantData.INCORRECT_EMAIL_AND_PASSWORD;
-import static com.ty.zenxl.pojos.ZenxlConstantData.OLD_PASSWORD_AND_NEW_PASSWORD_SHOULD_BE_DIFFERENT;
-import static com.ty.zenxl.pojos.ZenxlConstantData.ONLY_REGISTERED_ADMIN_CAN_ADD_USERS;
-import static com.ty.zenxl.pojos.ZenxlConstantData.PASSCODE_HAS_BEEN_SENT;
-import static com.ty.zenxl.pojos.ZenxlConstantData.PASSCODE_NOT_FOUND_WITH_ENTERED_EMAIL;
-import static com.ty.zenxl.pojos.ZenxlConstantData.PASSWORD_RESET_SUCCESSFUL;
-import static com.ty.zenxl.pojos.ZenxlConstantData.SIGN_UP_UNSUCCESSFUL;
-import static com.ty.zenxl.pojos.ZenxlConstantData.THE_FIRST_REGISTERED_USER_MUST_BE_ADMIN_ONLY;
-import static com.ty.zenxl.pojos.ZenxlConstantData.USER_DOESN_T_EXIST_WITH_THE_ENTERED_EMAIL;
-import static com.ty.zenxl.pojos.ZenxlConstantData.USER_NOT_FOUND_WITH_THIS_EMAIL_ADDRESS;
+import static com.ty.zenxl.pojos.ZenxlConstantData.*;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -25,6 +12,7 @@ import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -92,8 +80,8 @@ public class ZenxlAuthService {
 	public String authenticateUser(LoginRequest request) throws AuthenticationException {
 
 		try {
-			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+			authenticationManager
+					.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 		} catch (BadCredentialsException e) {
 			throw new BadCredentialsException(INCORRECT_EMAIL_AND_PASSWORD);
 		} catch (LockedException e) {
@@ -105,11 +93,11 @@ public class ZenxlAuthService {
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
 
 		final String generateJwtToken = jwtUtils.generateToken(userDetails);
-		
+
 		return generateJwtToken;
 	}
 
-	public String forgotPassword(String email) {
+	public String forgotPassword(String email, HttpServletRequest request) {
 
 		Optional<User> findByEmail = userRepository.findByEmail(email);
 		if (Boolean.FALSE.equals(findByEmail.isPresent())) {
@@ -138,7 +126,9 @@ public class ZenxlAuthService {
 			}
 
 			mimeMessageHelper.setText("\n" + "Hello " + findByEmail.get().getUsername() + "," + "\n\n"
-					+ "Please use this passcode to reset your password " + passcode + "\n\n" + "Note" + "\n"
+					+ "Please use this passcode to reset your password " + passcode + "\n\n"
+					+ "To reset your password, click the link below:\n" + "https://ty-zenxl.herokuapp.com/swagger-ui/index.html#/zenxl-auth-controller/changePassword" + "\n\n" 
+					+ "Note" + "\n"
 					+ "Passcode will expire in 5 minutes." + "\n\n" + "Thanks & Regards," + "\n" + "Team ZeNXL");
 			sendEmail(mimeMessage);
 		} catch (MailException | MessagingException e) {
@@ -152,7 +142,7 @@ public class ZenxlAuthService {
 		emailSender.send(mimeMessage);
 	}
 
-	public String changePassword(String email,ChangePasswordRequest request) {
+	public String changePassword(String email, ChangePasswordRequest request) {
 		Optional<Passcode> passcode = passcodeRepository.findByEmail(email);
 		if (passcode.isPresent()) {
 
@@ -187,15 +177,14 @@ public class ZenxlAuthService {
 	public UserResponse adminRegistration(@Valid SignUpRequest request) {
 
 		if (userRepository.findAll().isEmpty()) {
-			
 
 			String requestedRole = request.getRole();
 			if (!requestedRole.startsWith("ROLE_")) {
-				requestedRole = "ROLE_"+requestedRole.toUpperCase();
+				requestedRole = "ROLE_" + requestedRole.toUpperCase();
 			}
-			
-			if (requestedRole.equals("ROLE_ADMIN")) {
-				
+
+			if (request.getRole().equals("ROLE_ADMIN")) {
+
 				Role role = roleRepository.findByRoleName(requestedRole)
 						.orElse(Role.builder().roleName(requestedRole).build());
 
@@ -207,7 +196,8 @@ public class ZenxlAuthService {
 
 				if (savedUser.getUsername() != null) {
 
-					return UserResponse.builder().userId(savedUser.getUserId()).username(savedUser.getUsername()).status(Boolean.TRUE).build();
+					return UserResponse.builder().userId(savedUser.getUserId()).username(savedUser.getUsername())
+							.status(Boolean.TRUE).build();
 				}
 				throw new UserPersistenceException(SIGN_UP_UNSUCCESSFUL);
 			}
