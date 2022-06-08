@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * Defines the StatusCatagory table created in the database with the mentioned
+ * Defines the StatusCategory table created in the database with the mentioned
  * fields.
  * 
  * @author Indrajit
@@ -24,6 +24,6 @@ import lombok.NoArgsConstructor;
 public class StatusPKID implements Serializable	 {
 
 	private String statusName;
-    private String statusCatagory;
+    private String statusCategory;
 
 }
