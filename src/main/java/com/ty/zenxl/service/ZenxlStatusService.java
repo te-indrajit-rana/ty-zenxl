@@ -88,7 +88,7 @@ public class ZenxlStatusService {
 		return listOfStatusCategoryResponses;
 	}
 
-	public List<String> findAllStatuseCatagories() {
+	public List<String> findAllStatusCategories() {
 		return statusRepository.findAll().stream().map(status -> status.getStatusCategory()).distinct()
 				.collect(Collectors.toList());
 	}
