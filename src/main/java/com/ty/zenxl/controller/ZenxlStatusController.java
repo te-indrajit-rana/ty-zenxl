@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ty.zenxl.pojos.ZenxlResponseBody;
 import com.ty.zenxl.request.StatusRequest;
 import com.ty.zenxl.request.UpdateStatusRequest;
-import com.ty.zenxl.response.StatusCatagoryResponse;
+import com.ty.zenxl.response.StatusCategoryResponse;
 import com.ty.zenxl.response.StatusResponse;
 import com.ty.zenxl.response.ViewStatusResponse;
 import com.ty.zenxl.service.ZenxlStatusService;
@@ -60,12 +60,12 @@ public class ZenxlStatusController {
 
 	@GetMapping("/view-status")
 	public ResponseEntity<ViewStatusResponse> viewStatus(@RequestHeader String statusName,
-			@RequestHeader String statusCatagory) {
-		return ResponseEntity.ok(zenxlStatusService.viewStatus(statusName, statusCatagory));
+			@RequestHeader String statusCategory) {
+		return ResponseEntity.ok(zenxlStatusService.viewStatus(statusName, statusCategory));
 	}
 
 	@GetMapping("/find-all-statuses")
-	public ResponseEntity<List<StatusCatagoryResponse>> findAllStatuses() {
+	public ResponseEntity<List<StatusCategoryResponse>> findAllStatuses() {
 		return ResponseEntity.ok(zenxlStatusService.findAllStatuses());
 	}
 
@@ -76,26 +76,26 @@ public class ZenxlStatusController {
 	
 	@PutMapping("/update-status")
 	public ResponseEntity<ZenxlResponseBody> updateStatus(@RequestHeader String statusName,
-			@RequestHeader String statusCatagory, @Valid @RequestBody UpdateStatusRequest request) {
+			@RequestHeader String statusCategory, @Valid @RequestBody UpdateStatusRequest request) {
 		
-		String updateStatusMessage = zenxlStatusService.updateStatus(statusName, statusCatagory, request);
+		String updateStatusMessage = zenxlStatusService.updateStatus(statusName, statusCategory, request);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(updateStatusMessage).build();
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
 
 	@DeleteMapping("/delete-status")
-	public ResponseEntity<ZenxlResponseBody> deleteStatus(@RequestHeader String statusName, @RequestHeader String statusCatagory) {
+	public ResponseEntity<ZenxlResponseBody> deleteStatus(@RequestHeader String statusName, @RequestHeader String statusCategory) {
 		
-		String deleteStatusMessage = zenxlStatusService.deleteStatus(statusName, statusCatagory);
+		String deleteStatusMessage = zenxlStatusService.deleteStatus(statusName, statusCategory);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteStatusMessage).build();
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
 
 	@PutMapping("/change-status")
 	public ResponseEntity<ZenxlResponseBody> setStatus(@RequestHeader String statusName,
-			@RequestHeader String statusCatagory, @RequestHeader boolean isActive) {
+			@RequestHeader String statusCategory, @RequestHeader boolean isActive) {
 		
-		String setStatusMessage = zenxlStatusService.setStatus(statusName, statusCatagory, isActive);
+		String setStatusMessage = zenxlStatusService.setStatus(statusName, statusCategory, isActive);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(setStatusMessage).build();
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}

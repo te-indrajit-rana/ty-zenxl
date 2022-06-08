@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class StatusResponse {
 
 	private String statusName;
-	private String statusCatagory;
+	private String statusCategory;
 	private String description;
 	private Boolean isActive;
 }

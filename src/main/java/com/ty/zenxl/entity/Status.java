@@ -15,7 +15,7 @@ import lombok.Setter;
 /**
  * Defines the Status table created in the database with the mentioned fields.
  * 
- * statusName and statusCatagory are defined to be used as composite key Status Table
+ * statusName and statusCategory are defined to be used as composite key Status Table
  * 
  * @author Indrajit
  * @version 1.0
@@ -37,8 +37,8 @@ public class Status {
     private String statusName;
 
     @Id
-    @Column(name="status_catagory", length=45)
-    private String statusCatagory;
+    @Column(name="status_category", length=45)
+    private String statusCategory;
     
     @Column(length=145)
     private String description;

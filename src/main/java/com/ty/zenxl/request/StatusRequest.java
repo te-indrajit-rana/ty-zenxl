@@ -26,7 +26,7 @@ public class StatusRequest {
 	@NotNull
 	private String statusName;
 	@NotNull
-	private String statusCatagory;
+	private String statusCategory;
 	@NotNull
 	private String description;
 

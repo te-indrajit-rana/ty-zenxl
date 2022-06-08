@@ -23,8 +23,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(Include.NON_NULL)
-public class StatusCatagoryResponse {
+public class StatusCategoryResponse {
 
-	private String statusCatagory;
+	private String statusCategory;
 	private List<StatusResponse> statusResponses; 
 }

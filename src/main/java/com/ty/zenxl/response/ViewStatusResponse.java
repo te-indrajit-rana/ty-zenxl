@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @JsonInclude(Include.NON_NULL)
 public class ViewStatusResponse {
 
-	private String statusCatagory;
+	private String statusCategory;
 	private String statusName;
 	private String description;
 	

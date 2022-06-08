@@ -43,8 +43,8 @@ public class ZenxlConstantData {
 	public static final String SOMETHING_WENT_WRONG = "Something went wrong.";
 	public static final String CUSTOMER_ALREADY_EXISTS = "Customer already exists";
 	
-	public static final String STATUS_ALEADY_EXISTS_WITH_THE_MENTIONED_STATUS_CATAGORY = "Status aleady exists with the mentioned status catagory";
-	public static final String STATUS_NOT_FOUND_WITH_THE_MENTIONED_CATAGORY = "Status not found with the mentioned catagory";
+	public static final String STATUS_ALEADY_EXISTS_WITH_THE_MENTIONED_STATUS_CATEGORY = "Status aleady exists with the mentioned status catagory";
+	public static final String STATUS_NOT_FOUND_WITH_THE_MENTIONED_CATEGORY = "Status not found with the mentioned category";
 	public static final String STATUS_CHANGED_SUCCESSFULLY = "Status changed successfullly";
 	public static final String STATUS_NOT_FOUND = "Status not found";
 	

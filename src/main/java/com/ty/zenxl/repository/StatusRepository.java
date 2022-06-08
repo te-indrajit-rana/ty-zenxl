@@ -18,12 +18,12 @@ import com.ty.zenxl.entity.StatusPKID;
 
 public interface StatusRepository extends JpaRepository<Status, StatusPKID> {
 
-	boolean existsByStatusNameAndStatusCatagory(String statusName, String statusCatagory);
+	boolean existsByStatusNameAndStatusCategory(String statusName, String statusCategory);
 
 	Optional<List<Status>> findAllByStatusName(String statusName);
 
-	Optional<List<Status>> findAllByStatusCatagory(String statusCatagory);
+	Optional<List<Status>> findAllByStatusCategory(String statusCategory);
 
-	Optional<Status> findByStatusNameAndStatusCatagory(String statusName, String statusCatagory);
+	Optional<Status> findByStatusNameAndStatusCategory(String statusName, String statusCategory);
 
 }
