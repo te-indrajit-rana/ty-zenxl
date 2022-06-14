@@ -24,10 +24,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ChangePasswordRequest {
 
-	@NotNull
+	@NotNull(message = "Passcode must not be null.")
 	private Integer passcode;
-	@Size(min = 4, max = 16)
+	@Size(min = 4, max = 16, message = "Password must be within 4 to 16 characters.")
 	private String password;
-	@Size(min = 4, max = 16)
+	@Size(min = 4, max = 16, message = "Confirm Password must be within 4 to 16 characters.")
 	private String confirmPassword;
 }

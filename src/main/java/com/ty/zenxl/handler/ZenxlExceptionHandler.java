@@ -2,8 +2,11 @@ package com.ty.zenxl.handler;
 
 import static com.ty.zenxl.pojos.ZenxlConstantData.IS_ERROR_TRUE;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -40,12 +43,14 @@ public class ZenxlExceptionHandler extends ResponseEntityExceptionHandler {
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 
 		Map<String, Object> errorMap = new HashMap<>();
-		Map<String, Object> validationErrorMap = new HashMap<>();
-		ex.getBindingResult().getFieldErrors()
-				.forEach(error -> validationErrorMap.put(error.getField(), error.getDefaultMessage()));
-
+		List<String> errors = new ArrayList<>();
+		
+		errors = ex.getAllErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.toList());
+		
 		errorMap.put("isError", IS_ERROR_TRUE);
-		errorMap.put("validationError", validationErrorMap);
+		errorMap.put("validationError", errors);
+		
+		
 		return ResponseEntity.badRequest().body(errorMap);
 	}
 

@@ -25,20 +25,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CustomerRequest {
 
-	@NotNull
-	@NotBlank
+	@NotNull(message = "Customer name must not be null.")
+	@NotBlank(message = "Customer name must not be blank.")
 	private String customerName;
-	@NotNull
-	@NotBlank
+	@NotNull(message = "Contact person must not be null.")
+	@NotBlank(message = "Contact person must not be blank.")
 	private String contactPerson;
-	@NotNull
+	@NotNull(message = "Phone number must not be null.")
 	private Long phoneNumber;
-	@Email
-	@NotNull
-	@NotBlank
+	@Email(message = "Please provide a valid email.")
+	@NotNull(message = "Email must not be null.")
+	@NotBlank(message = "Email must not be blank.")
 	private String email;
-	@NotNull
+	@NotNull(message = "Address must not be null.")
 	private AddressRequest addressRequest;
-	@NotNull
+	@NotNull(message = "Billing details must not be null.")
 	private BillingDetailsRequest billingDetailsRequest;
 }

@@ -24,21 +24,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AddressRequest {
 
-	@NotNull
-	@NotBlank
+	@NotNull(message = "Address1 must not be null.")
+	@NotBlank(message = "Address1 must not be blank.")
 	private String address1;
-	@NotNull
-	@NotBlank
+	@NotNull(message = "Address2 must not be null.")
+	@NotBlank(message = "Address2 must not be blank.")
 	private String address2;
-	@NotNull
-	@NotBlank
+	@NotNull(message = "City name must not be null.")
+	@NotBlank(message = "City name must not be blank.")
 	private String city;
-	@NotNull
-	@NotBlank
+	@NotNull(message = "State name must not be null.")
+	@NotBlank(message = "State name must not be blank.")
 	private String state;
-	@NotNull
+	@NotNull(message = "Zipcode must not be null.")
 	private Long zipCode;
-	@NotNull
-	@NotBlank
+	@NotNull(message = "Country name must not be null.")
+	@NotBlank(message = "Country name must not be blank.")
 	private String country;
 }

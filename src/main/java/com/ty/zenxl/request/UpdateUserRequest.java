@@ -29,19 +29,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateUserRequest {
 
-	@Size(min = 2, max = 20)
+	@Size(min = 2, max = 20, message = "Username must be in between 2 to 20 characters.")
 	private String username;
-	@Email
-	@NotNull
-	@NotBlank
+	@Email(message = "Please provide a valid email.")
+	@NotNull(message = "Email must not be null.")
+	@NotBlank(message = "Email must not be blank.")
 	private String email;
-	@Past
-	@NotNull
+	@Past(message = "Date of birth must be in the past.")
+	@NotNull(message = "Date of birth must not be null.")
 	private Date dateOfBirth;
-	@NotNull
-	@NotBlank
+	@NotNull(message = "Gender must not be null.")
+	@NotBlank(message = "Gender must not be blank.")
 	private String gender;
-	@NotNull
-	@NotBlank
+	@NotNull(message = "Role must not be null.")
+	@NotBlank(message = "Role must not be blank.")
 	private String role;
 }

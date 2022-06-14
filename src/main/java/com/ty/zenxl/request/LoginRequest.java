@@ -25,12 +25,12 @@ import lombok.NoArgsConstructor;
 @Builder
 public class LoginRequest {
 
-	@Email
-	@NotNull
-	@NotBlank
+	@Email(message = "Please provide a valid email.")
+	@NotNull(message = "Email must not be null.")
+	@NotBlank(message = "Email must not be blank.")
 	private String email;
-	@NotNull
-	@NotBlank
+	@NotNull(message = "Password must not be null.")
+	@NotBlank(message = "Password must not be blank.")
 	private String password;
 
 }

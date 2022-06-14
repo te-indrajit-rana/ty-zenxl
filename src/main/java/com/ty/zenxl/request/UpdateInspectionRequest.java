@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateInspectionRequest {
 
-	@NotNull
-	@NotBlank
+	@NotNull(message = "Inspection type must not be null.")
+	@NotBlank(message = "Inspection type must not be blank.")
 	private String inspectionType;
 }

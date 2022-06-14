@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class IncotermRequest {
 
-	@NotNull
-	@NotBlank
+	@NotNull(message = "Incoterm type must not be null.")
+	@NotBlank(message = "Incoterm type must not be blank.")
 	private String incotermType;
 }

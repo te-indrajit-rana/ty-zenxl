@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateCertificateRequest {
 
-	@NotNull
-	@NotBlank
+	@NotNull(message = "Certificate type must not be null.")
+	@NotBlank(message = "Certificate type must not be blank.")
 	private String certificateType;
 }

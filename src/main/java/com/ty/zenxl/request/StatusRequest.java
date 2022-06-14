@@ -24,14 +24,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class StatusRequest {
 	
-	@NotNull
-	@NotBlank
+	@NotNull(message = "Status must not be null.")
+	@NotBlank(message = "Status must not be blank.")
 	private String statusName;
-	@NotNull
-	@NotBlank
+	@NotNull(message = "Status catagory must not be null.")
+	@NotBlank(message = "Status catagory must not be blank.")
 	private String statusCategory;
-	@NotNull
-	@NotBlank
+	@NotNull(message = "Status description must not be null.")
+	@NotBlank(message = "Status description must not be blank.")
 	private String description;
 
 }

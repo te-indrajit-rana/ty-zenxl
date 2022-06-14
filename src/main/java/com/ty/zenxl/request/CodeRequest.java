@@ -24,8 +24,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CodeRequest {
 
-	@NotNull
-	@NotBlank
+	@NotNull(message = "Code type must not be null.")
+	@NotBlank(message = "Code type must not be blank.")
 	private String codeType;
 
 }

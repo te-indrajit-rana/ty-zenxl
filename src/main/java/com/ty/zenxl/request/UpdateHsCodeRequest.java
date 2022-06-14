@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateHsCodeRequest {
 
-	@NotNull
-	@NotBlank
+	@NotNull(message = "HS Code type must not be null.")
+	@NotBlank(message = "HS Code type must not be blank.")
 	private String hsCodeType;
 }
