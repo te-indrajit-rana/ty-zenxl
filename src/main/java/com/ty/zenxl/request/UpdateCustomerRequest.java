@@ -37,8 +37,52 @@ public class UpdateCustomerRequest {
 	@NotNull(message = "Email must not be null.")
 	@NotBlank(message = "Email must not be blank.")
 	private String email;
-	@NotNull(message = "Address must not be null.")
-	private AddressRequest addressRequest;
-	@NotNull(message = "Billing details must not be null.")
-	private BillingDetailsRequest billingDetailsRequest;
+	
+	
+	@NotNull(message = "Address1 must not be null.")
+	@NotBlank(message = "Address1 must not be blank.")
+	private String address1;
+	@NotNull(message = "Address2 must not be null.")
+	@NotBlank(message = "Address2 must not be blank.")
+	private String address2;
+	@NotNull(message = "City name must not be null.")
+	@NotBlank(message = "City name must not be blank.")
+	private String city;
+	@NotNull(message = "State name must not be null.")
+	@NotBlank(message = "State name must not be blank.")
+	private String state;
+	@NotNull(message = "Zipcode must not be null.")
+	private Long zipCode;
+	@NotNull(message = "Country name must not be null.")
+	@NotBlank(message = "Country name must not be blank.")
+	private String country;
+	
+	
+	@NotNull(message = "Billing name must not be null.")
+	@NotBlank(message = "Billing name must not be blank.")
+	private String billingName;
+	@NotNull(message = "Billing contact number must not be null.")
+	private Long billingContactNumber;
+	@Email(message = "Please provide a valid email.")
+	@NotNull(message = "Billing email must not be null.")
+	@NotBlank(message = "Billing email must not be blank.")
+	private String billingEmail;
+	
+	@NotNull(message = "Billing address1 must not be null.")
+	@NotBlank(message = "Billing address1 must not be blank.")
+	private String billingAddress1;
+	@NotNull(message = "Billing address2 must not be null.")
+	@NotBlank(message = "Billing address2 must not be blank.")
+	private String billingAddress2;
+	@NotNull(message = "Billing city name must not be null.")
+	@NotBlank(message = "Billing city name must not be blank.")
+	private String billingCity;
+	@NotNull(message = "Billing state name must not be null.")
+	@NotBlank(message = "Billing state name must not be blank.")
+	private String billingState;
+	@NotNull(message = "Billing zipcode must not be null.")
+	private Long billingZipCode;
+	@NotNull(message = "Billing country name must not be null.")
+	@NotBlank(message = "Billing country name must not be blank.")
+	private String billingCountry;
 }

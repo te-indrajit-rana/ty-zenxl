@@ -98,22 +98,22 @@ public class ZenxlCustomerService {
 		Customer initialCustomerDetails = customerRepository.findByCustomerId(customerId)
 				.orElseThrow(() -> new CustomerNotFoundException("Customer not found with customer id " + customerId));
 
-		Address updatedAddress = Address.builder().address1(request.getAddressRequest().getAddress1())
-				.address2(request.getAddressRequest().getAddress2()).city(request.getAddressRequest().getCity())
-				.state(request.getAddressRequest().getState()).zipCode(request.getAddressRequest().getZipCode())
-				.country(request.getAddressRequest().getCountry()).build();
+		Address updatedAddress = Address.builder().address1(request.getAddress1())
+				.address2(request.getAddress2()).city(request.getCity())
+				.state(request.getState()).zipCode(request.getZipCode())
+				.country(request.getCountry()).build();
 
 		BillingDetails updatedBillingDetails = BillingDetails.builder()
-				.billingName(request.getBillingDetailsRequest().getBillingName())
-				.billingContactNumber(request.getBillingDetailsRequest().getBillingContactNumber())
-				.billingEmail(request.getBillingDetailsRequest().getBillingEmail())
+				.billingName(request.getBillingName())
+				.billingContactNumber(request.getBillingContactNumber())
+				.billingEmail(request.getBillingEmail())
 				.address(
-						Address.builder().address1(request.getBillingDetailsRequest().getAddressRequest().getAddress1())
-								.address2(request.getBillingDetailsRequest().getAddressRequest().getAddress2())
-								.city(request.getBillingDetailsRequest().getAddressRequest().getCity())
-								.state(request.getBillingDetailsRequest().getAddressRequest().getState())
-								.zipCode(request.getBillingDetailsRequest().getAddressRequest().getZipCode())
-								.country(request.getBillingDetailsRequest().getAddressRequest().getCountry()).build())
+						Address.builder().address1(request.getBillingAddress1())
+								.address2(request.getBillingAddress2())
+								.city(request.getBillingCity())
+								.state(request.getBillingState())
+								.zipCode(request.getBillingZipCode())
+								.country(request.getBillingCountry()).build())
 				.build();
 
 		initialCustomerDetails.setCustomerName(request.getCustomerName());
