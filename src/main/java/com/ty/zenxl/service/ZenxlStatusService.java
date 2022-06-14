@@ -54,7 +54,7 @@ public class ZenxlStatusService {
 		if (savedStatus.getStatusName() != null) {
 			return StatusResponse.builder().statusName(savedStatus.getStatusName())
 					.statusCategory(savedStatus.getStatusCategory()).description(savedStatus.getDescription())
-					.isActive(savedStatus.isActive()).build();
+					.isActive(savedStatus.getIsActive()).build();
 		}
 		throw new StatusPersistenceException(SOMETHING_WENT_WRONG);
 	}
@@ -75,7 +75,7 @@ public class ZenxlStatusService {
 
 				List<StatusResponse> statusResponses = findStatusesByStatusCategoryName.get().stream()
 						.map(status -> StatusResponse.builder().statusName(status.getStatusName())
-								.description(status.getDescription()).isActive(status.isActive()).build())
+								.description(status.getDescription()).isActive(status.getIsActive()).build())
 						.collect(Collectors.toList());
 
 				listOfStatusCategoryResponses.add(StatusCategoryResponse.builder().statusCategory(statusCategory)
@@ -129,7 +129,7 @@ public class ZenxlStatusService {
 				.orElseThrow(() -> new StatusNotFoundException("Status not found with status name " + statusName
 						+ "status catagory" + statusCategory.toUpperCase()));
 
-		status.setActive(isActive);
+		status.setIsActive(isActive);
 		Status updatedStatus = statusRepository.save(status);
 		if (updatedStatus == null) {
 			throw new ChangeStatusException(UNABLE_TO_CHANGE_USER_STATUS);

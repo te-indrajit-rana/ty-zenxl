@@ -34,7 +34,7 @@ public class Certificate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "certificate_id", unique = true, nullable = false, precision = 10)
-	private int certificateId;
+	private Integer certificateId;
 	@Column(name = "certificate_type", length = 45)
 	private String certificateType;
 }

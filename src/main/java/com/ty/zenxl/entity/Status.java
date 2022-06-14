@@ -15,7 +15,7 @@ import lombok.Setter;
 /**
  * Defines the Status table created in the database with the mentioned fields.
  * 
- * statusName and statusCategory are defined to be used as composite key Status Table
+ * statusName and statusCategory are defined in {@code StatusPKID} to be used as composite key for {@code Status} Table
  * 
  * @author Indrajit
  * @version 1.0
@@ -44,6 +44,6 @@ public class Status {
     private String description;
     
     @Column(name="is_active", length=1)
-    private boolean isActive;
+    private Boolean isActive;
     
 }

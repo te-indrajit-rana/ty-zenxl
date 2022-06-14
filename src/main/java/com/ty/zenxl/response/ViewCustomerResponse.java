@@ -20,13 +20,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(Include.NON_NULL)
+@JsonInclude(Include.NON_DEFAULT)
 public class ViewCustomerResponse {
 	
 	private String customerName;
 	private AddressResponse customerAddressResponse;
 	private String contactPerson;
-	private long phoneNumber;
+	private Long phoneNumber;
 	private String email;
 	private BillingDetailsResponse billingDetailsResponse;
 }

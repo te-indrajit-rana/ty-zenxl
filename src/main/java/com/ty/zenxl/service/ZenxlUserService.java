@@ -73,7 +73,7 @@ public class ZenxlUserService {
 		List<User> findAllUsers = userRepository.findAll();
 		return findAllUsers.stream()
 				.map(user -> UserResponse.builder().userId(user.getUserId()).username(user.getUsername())
-						.email(user.getEmail()).role(user.getRole().getRoleName()).status(user.isActive()).build())
+						.email(user.getEmail()).role(user.getRole().getRoleName()).dateOfBirth(user.getDateOfBirth()).gender(user.getGender()).status(user.getActive()).build())
 				.collect(Collectors.toList());
 	}
 

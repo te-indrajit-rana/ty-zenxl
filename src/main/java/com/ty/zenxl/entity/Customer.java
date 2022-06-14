@@ -37,13 +37,13 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "customer_id", unique = true, nullable = false, precision = 5)
-	private int customerId;
+	private Integer customerId;
 	@Column(name = "customer_name", nullable = false, length = 45)
 	private String customerName;
 	@Column
 	private String contactPerson;
 	@Column
-	private long phoneNumber;
+	private Long phoneNumber;
 	@Column
 	private String email;
 	

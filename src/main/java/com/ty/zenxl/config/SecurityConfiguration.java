@@ -17,18 +17,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.ty.zenxl.service.ZenxlCustomUserDetailsService;
 
 /**
+ * <p>
  * Security configuration class for the application.
- * Extends the {@code WebSecurityConfigurerAdapter} class to override basic security mechanism.
+ * Extends the {@link WebSecurityConfigurerAdapter} class to override basic security mechanism.
+ * </p>
  * Permits the swagger api request calls.
  * 
- * Adds {@code CustomOncePerRequestFilter} to intercepts the request to validate those.
+ * Adds {@link CustomOncePerRequestFilter} to intercepts the request to validate those.
  * 
- * Used {@code BCryptPasswordEncoder} to encode the plaintext passwords into secured hashcodes.
+ * Used {@link BCryptPasswordEncoder} to encode the plaintext passwords into secured hashcodes.
  * 
- * Used {@code CustomUserDetailsService} to load the authenticated user.
- * 
+ * Used {@link ZenxlCustomUserDetailsService} to load the authenticated user.
+ * <p>
  * Implemented Role Based Authentication Mechanism for the application.
- * 
+ * </p>
  * @author Indrajit
  * @version 1.0
  */

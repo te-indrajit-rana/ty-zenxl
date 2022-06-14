@@ -16,8 +16,8 @@ import lombok.NoArgsConstructor;
 /**
  * Represents the request DTO for {@code User} for signup purpose.
  * 
- * Contains bean validation properties, to validate the request object using {@code @Valid} 
- * in {@code ZenxlAuthController}
+ * Contains bean validation properties, to validate the request object using
+ * {@code @Valid} in {@code ZenxlAuthController}
  * 
  * @author Indrajit
  * @version 1.0
@@ -31,15 +31,18 @@ public class SignUpRequest {
 
 	@Size(min = 2, max = 20)
 	private String username;
-	@NotNull
 	@Email
-	private String email;
 	@NotNull
+	@NotBlank
+	private String email;
 	@Past
+	@NotNull
 	private Date dateOfBirth;
+	@NotNull
 	@NotBlank
 	private String gender;
 	@NotNull
+	@NotBlank
 	private String role;
 	@Size(min = 4, max = 16)
 	private String password;

@@ -37,7 +37,7 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "address_id", unique = true, nullable = false, precision = 5)
-	private int addressId;
+	private Integer addressId;
 	@Column(nullable = false, length = 50)
 	private String address1;
 	@Column(length = 50)
@@ -47,7 +47,7 @@ public class Address {
 	@Column(length = 50)
 	private String state;
 	@Column(name = "zip_code", length = 10)
-	private long zipCode;
+	private Long zipCode;
 	@Column(length = 50)
 	private String country;
 

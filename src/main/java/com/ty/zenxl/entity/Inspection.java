@@ -34,7 +34,7 @@ public class Inspection {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "inspection_id", unique = true, nullable = false, precision = 10)
-	private int inspectionId;
+	private Integer inspectionId;
 	@Column(name = "inspection_type", length = 45)
 	private String inspectionType;
 }

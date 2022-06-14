@@ -38,11 +38,11 @@ public class BillingDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "billing_details_id", unique = true, nullable = false, precision = 10)
-	private int billingDetailsId;
+	private Integer billingDetailsId;
 	@Column(name = "billing_name", length = 45)
 	private String billingName;
 	@Column(name = "billing_contact_number", precision = 19)
-	private long billingContactNumber;
+	private Long billingContactNumber;
 	@Column(name = "billing_email", length = 45)
 	private String billingEmail;
 

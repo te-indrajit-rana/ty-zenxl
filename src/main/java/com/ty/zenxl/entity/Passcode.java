@@ -35,9 +35,9 @@ public class Passcode {
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	@Column
-	private int passcode;
+	private Integer passcode;
 	@Column
 	private String email;
 	@Column

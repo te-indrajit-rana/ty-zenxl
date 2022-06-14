@@ -19,10 +19,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(Include.NON_NULL)
+@JsonInclude(Include.NON_DEFAULT)
 public class CustomerResponse {
 
-	private int customerId;
+	private Integer customerId;
 	private String customerName;
 	private String city;
 	private String state;

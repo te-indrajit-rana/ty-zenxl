@@ -21,14 +21,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(Include.NON_NULL)
+@JsonInclude(Include.NON_DEFAULT)
 public class AddressResponse {
 	
 	private String address1;
 	private String address2;
 	private String city;
 	private String state;
-	private long zipCode;
+	private Long zipCode;
 	private String country;
 	
 }

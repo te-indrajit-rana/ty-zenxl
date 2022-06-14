@@ -19,10 +19,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(Include.NON_NULL)
+@JsonInclude(Include.NON_DEFAULT)
 public class ChangePasswordResponse {
 
-	private boolean isError;
+	private Boolean isError;
 	private String message;
 	
 }

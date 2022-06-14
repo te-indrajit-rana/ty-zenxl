@@ -19,9 +19,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(Include.NON_NULL)
+@JsonInclude(Include.NON_DEFAULT)
 public class SignnedUpUser {
 
-	private int userId;
+	private Integer userId;
 	private String username;
 }

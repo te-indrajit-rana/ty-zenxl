@@ -19,10 +19,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(Include.NON_NULL)
+@JsonInclude(Include.NON_DEFAULT)
 public class CertificateResponse {
 	
-	private int certificateId;
+	private Integer certificateId;
 	private String certificateType;
 	
 }

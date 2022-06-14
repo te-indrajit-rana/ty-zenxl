@@ -1,6 +1,6 @@
 package com.ty.zenxl.request;
 
-
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 /**
  * Represents the request DTO for {@code HsCode} for update purpose.
  * 
- * Contains bean validation properties, to validate the request object using {@code @Valid} 
- * in {@code ZenxlUtilityController}
+ * Contains bean validation properties, to validate the request object using
+ * {@code @Valid} in {@code ZenxlUtilityController}
  * 
  * @author Indrajit
  * @version 1.0
@@ -25,5 +25,6 @@ import lombok.NoArgsConstructor;
 public class UpdateHsCodeRequest {
 
 	@NotNull
+	@NotBlank
 	private String hsCodeType;
 }

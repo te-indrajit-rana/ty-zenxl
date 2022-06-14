@@ -1,5 +1,7 @@
 package com.ty.zenxl.response;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -22,9 +24,11 @@ import lombok.NoArgsConstructor;
 @JsonInclude(Include.NON_DEFAULT)
 public class UserResponse {
 	
-	private int userId;
+	private Integer userId;
 	private String username;
 	private String email;
 	private String role;
-	private boolean status;
+	private Date dateOfBirth;
+	private String gender;
+	private Boolean status;
 }

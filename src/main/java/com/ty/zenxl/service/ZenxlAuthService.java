@@ -1,7 +1,20 @@
 
 package com.ty.zenxl.service;
 
-import static com.ty.zenxl.pojos.ZenxlConstantData.*;
+import static com.ty.zenxl.pojos.ZenxlConstantData.ACCOUNT_IS_CURRENTLY_INACTIVE;
+import static com.ty.zenxl.pojos.ZenxlConstantData.ACCOUNT_IS_CURRENTLY_LOCKED;
+import static com.ty.zenxl.pojos.ZenxlConstantData.BOTH_PASSWORDS_SHOULD_BE_SAME;
+import static com.ty.zenxl.pojos.ZenxlConstantData.ENTERED_PASSCODE_NOT_VALID;
+import static com.ty.zenxl.pojos.ZenxlConstantData.INCORRECT_EMAIL_AND_PASSWORD;
+import static com.ty.zenxl.pojos.ZenxlConstantData.OLD_PASSWORD_AND_NEW_PASSWORD_SHOULD_BE_DIFFERENT;
+import static com.ty.zenxl.pojos.ZenxlConstantData.ONLY_REGISTERED_ADMIN_CAN_ADD_USERS;
+import static com.ty.zenxl.pojos.ZenxlConstantData.PASSCODE_HAS_BEEN_SENT;
+import static com.ty.zenxl.pojos.ZenxlConstantData.PASSCODE_NOT_FOUND_WITH_ENTERED_EMAIL;
+import static com.ty.zenxl.pojos.ZenxlConstantData.PASSWORD_RESET_SUCCESSFUL;
+import static com.ty.zenxl.pojos.ZenxlConstantData.SIGN_UP_UNSUCCESSFUL;
+import static com.ty.zenxl.pojos.ZenxlConstantData.THE_FIRST_REGISTERED_USER_MUST_BE_ADMIN_ONLY;
+import static com.ty.zenxl.pojos.ZenxlConstantData.USER_DOESN_T_EXIST_WITH_THE_ENTERED_EMAIL;
+import static com.ty.zenxl.pojos.ZenxlConstantData.USER_NOT_FOUND_WITH_THIS_EMAIL_ADDRESS;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -182,8 +195,7 @@ public class ZenxlAuthService {
 			if (!requestedRole.startsWith("ROLE_")) {
 				requestedRole = "ROLE_" + requestedRole.toUpperCase();
 			}
-
-			if (request.getRole().equals("ROLE_ADMIN")) {
+			if (requestedRole.equals("ROLE_ADMIN")) {
 
 				Role role = roleRepository.findByRoleName(requestedRole)
 						.orElse(Role.builder().roleName(requestedRole).build());
@@ -205,4 +217,5 @@ public class ZenxlAuthService {
 		}
 		throw new UserPersistenceException(ONLY_REGISTERED_ADMIN_CAN_ADD_USERS);
 	}
+
 }

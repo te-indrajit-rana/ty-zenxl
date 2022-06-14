@@ -8,8 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * Defines the StatusCategory table created in the database with the mentioned
- * fields.
+ * Defines the columns that forms a composite key for the {@code Status} table created in the database.
  * 
  * @author Indrajit
  * @version 1.0

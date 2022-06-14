@@ -17,13 +17,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.ty.zenxl.pojos.JwtUtils;
 import com.ty.zenxl.service.ZenxlCustomUserDetailsService;
 
-/**
+/**<p>
  * Implemented {@link OncePerRequestFilter} interface to provide the mechanishm
  * of intercepting the coming request calls and validate them using JWT token.
- * 
+ * </p><p>
  * Once successful validation of the request, the user credentials are stored in
  * the {@code SecurityContextHolder} and then forward the filter chain.
- * 
+ * </p>
  * 
  * @author Indrajit
  * @version 1.0

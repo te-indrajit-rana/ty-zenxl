@@ -19,9 +19,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(Include.NON_NULL)
+@JsonInclude(Include.NON_DEFAULT)
 public class HsCodeResponse {
 
-	private int hsCodeId;
+	private Integer hsCodeId;
 	private String hsCodeType;
 }

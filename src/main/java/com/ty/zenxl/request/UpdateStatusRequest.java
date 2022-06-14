@@ -1,5 +1,6 @@
 package com.ty.zenxl.request;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -10,8 +11,8 @@ import lombok.NoArgsConstructor;
 /**
  * Represents the request DTO for {@code Status} for update purpose.
  * 
- * Contains bean validation properties, to validate the request object using {@code @Valid} 
- * in {@code ZenxlUtilityController}
+ * Contains bean validation properties, to validate the request object using
+ * {@code @Valid} in {@code ZenxlUtilityController}
  * 
  * @author Indrajit
  * @version 1.0
@@ -24,10 +25,13 @@ import lombok.NoArgsConstructor;
 public class UpdateStatusRequest {
 
 	@NotNull
+	@NotBlank
 	private String statusName;
 	@NotNull
+	@NotBlank
 	private String statusCategory;
 	@NotNull
+	@NotBlank
 	private String description;
-	
+
 }

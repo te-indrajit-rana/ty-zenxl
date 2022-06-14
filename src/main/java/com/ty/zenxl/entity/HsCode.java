@@ -33,7 +33,7 @@ public class HsCode {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "hs_code_id", unique = true, nullable = false, precision = 10)
-	private int hsCodeId;
+	private Integer hsCodeId;
 	@Column(name = "hs_code_type", length = 45)
 	private String hsCodeType;
 }

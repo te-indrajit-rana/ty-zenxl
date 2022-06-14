@@ -21,10 +21,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(Include.NON_NULL)
+@JsonInclude(Include.NON_DEFAULT)
 public class BillingDetailsResponse {
 	private String billingName;
-	private long billingContactNumber;
+	private Long billingContactNumber;
 	private String billingEmail;
 	private AddressResponse billingDetailsAddress;
 }

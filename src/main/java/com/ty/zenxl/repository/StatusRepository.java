@@ -13,7 +13,7 @@ import com.ty.zenxl.entity.StatusPKID;
  * Extends the {@code JpaRepository} interface.
  * 
  * @author Indrajit
- * @verion 1.0
+ * @version 1.0
  */
 
 public interface StatusRepository extends JpaRepository<Status, StatusPKID> {

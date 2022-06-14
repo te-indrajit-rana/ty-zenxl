@@ -1,5 +1,6 @@
 package com.ty.zenxl.request;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -24,10 +25,13 @@ import lombok.NoArgsConstructor;
 public class StatusRequest {
 	
 	@NotNull
+	@NotBlank
 	private String statusName;
 	@NotNull
+	@NotBlank
 	private String statusCategory;
 	@NotNull
+	@NotBlank
 	private String description;
 
 }

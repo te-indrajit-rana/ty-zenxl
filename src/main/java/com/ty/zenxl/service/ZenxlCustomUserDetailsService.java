@@ -40,7 +40,7 @@ public class ZenxlCustomUserDetailsService implements UserDetailsService {
 		Optional<User> findByUsername = userRepository.findByEmail(email);
 
 		if (findByUsername.isPresent()) {
-			if (findByUsername.get().isActive()) {
+			if (findByUsername.get().getActive()) {
 				return new ZenxlCustomUserDetails(findByUsername.get());
 			} else {
 				throw new DisabledException(ACCOUNT_IS_CURRENTLY_INACTIVE);

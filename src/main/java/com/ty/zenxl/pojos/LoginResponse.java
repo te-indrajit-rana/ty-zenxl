@@ -20,14 +20,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(Include.NON_NULL)
+@JsonInclude(Include.NON_DEFAULT)
 public class LoginResponse {
 
-	private boolean isError;
+	private Boolean isError;
 	private String message;
 	private JwtToken data;
 	
-	public LoginResponse(boolean isError, String message) {
+	public LoginResponse(Boolean isError, String message) {
 		this.isError = isError;
 		this.message = message;
 	}
