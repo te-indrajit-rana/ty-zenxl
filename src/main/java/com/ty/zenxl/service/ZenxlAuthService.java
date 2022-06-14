@@ -1,20 +1,7 @@
 
 package com.ty.zenxl.service;
 
-import static com.ty.zenxl.pojos.ZenxlConstantData.ACCOUNT_IS_CURRENTLY_INACTIVE;
-import static com.ty.zenxl.pojos.ZenxlConstantData.ACCOUNT_IS_CURRENTLY_LOCKED;
-import static com.ty.zenxl.pojos.ZenxlConstantData.BOTH_PASSWORDS_SHOULD_BE_SAME;
-import static com.ty.zenxl.pojos.ZenxlConstantData.ENTERED_PASSCODE_NOT_VALID;
-import static com.ty.zenxl.pojos.ZenxlConstantData.INCORRECT_EMAIL_AND_PASSWORD;
-import static com.ty.zenxl.pojos.ZenxlConstantData.OLD_PASSWORD_AND_NEW_PASSWORD_SHOULD_BE_DIFFERENT;
-import static com.ty.zenxl.pojos.ZenxlConstantData.ONLY_REGISTERED_ADMIN_CAN_ADD_USERS;
-import static com.ty.zenxl.pojos.ZenxlConstantData.PASSCODE_HAS_BEEN_SENT;
-import static com.ty.zenxl.pojos.ZenxlConstantData.PASSCODE_NOT_FOUND_WITH_ENTERED_EMAIL;
-import static com.ty.zenxl.pojos.ZenxlConstantData.PASSWORD_RESET_SUCCESSFUL;
-import static com.ty.zenxl.pojos.ZenxlConstantData.SIGN_UP_UNSUCCESSFUL;
-import static com.ty.zenxl.pojos.ZenxlConstantData.THE_FIRST_REGISTERED_USER_MUST_BE_ADMIN_ONLY;
-import static com.ty.zenxl.pojos.ZenxlConstantData.USER_DOESN_T_EXIST_WITH_THE_ENTERED_EMAIL;
-import static com.ty.zenxl.pojos.ZenxlConstantData.USER_NOT_FOUND_WITH_THIS_EMAIL_ADDRESS;
+import static com.ty.zenxl.pojos.ZenxlConstantData.*;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -112,37 +99,36 @@ public class ZenxlAuthService {
 
 	public String forgotPassword(String email, HttpServletRequest request) {
 
-		Optional<User> findByEmail = userRepository.findByEmail(email);
-		if (Boolean.FALSE.equals(findByEmail.isPresent())) {
-			throw new UserNotFoundException(USER_NOT_FOUND_WITH_THIS_EMAIL_ADDRESS);
-		}
+		User user = userRepository.findByEmail(email)
+				.orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_WITH_THIS_EMAIL_ADDRESS));
 
 		try {
 			MimeMessage mimeMessage = emailSender.createMimeMessage();
 			MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
-			mimeMessageHelper.setTo(findByEmail.get().getEmail());
+			mimeMessageHelper.setTo(user.getEmail());
 			mimeMessageHelper.setSubject("Reset Your ZeNXL Password");
 			int passcode = new Random().nextInt(900000) + 100000;
 
-			Passcode builtPasscode = Passcode.builder().passcode(passcode).email(findByEmail.get().getEmail())
-					.timestamp(LocalDateTime.now().plus(Duration.of(2, ChronoUnit.MINUTES))).build();
+			Passcode builtPasscode = Passcode.builder().passcode(passcode).email(user.getEmail())
+					.timestamp(LocalDateTime.now().plus(Duration.of(10, ChronoUnit.MINUTES))).build();
 
-			Optional<Passcode> findByUsernameInPasscode = passcodeRepository.findByEmail(findByEmail.get().getEmail());
-			if (findByUsernameInPasscode.isPresent()) {
-				Passcode initialPasscode = findByUsernameInPasscode.get();
+			Optional<Passcode> findByEmailInPasscode = passcodeRepository.findByEmail(user.getEmail());
+			if (findByEmailInPasscode.isPresent()) {
+				Passcode initialPasscode = findByEmailInPasscode.get();
 				initialPasscode.setPasscode(passcode);
-				initialPasscode.setTimestamp(LocalDateTime.now().plus(Duration.of(5, ChronoUnit.MINUTES)));
+				initialPasscode.setTimestamp(LocalDateTime.now().plus(Duration.of(10, ChronoUnit.MINUTES)));
 				passcodeRepository.save(initialPasscode);
 			} else {
 				passcodeRepository.save(builtPasscode);
 			}
 
-			mimeMessageHelper.setText("\n" + "Hello " + findByEmail.get().getUsername() + "," + "\n\n"
+			mimeMessageHelper.setText("\n" + "Hello " + user.getUsername() + "," + "\n\n"
 					+ "Please use this passcode to reset your password " + passcode + "\n\n"
-					+ "To reset your password, click the link below:\n" + "https://ty-zenxl.herokuapp.com/swagger-ui/index.html#/zenxl-auth-controller/changePassword" + "\n\n" 
-					+ "Note" + "\n"
-					+ "Passcode will expire in 5 minutes." + "\n\n" + "Thanks & Regards," + "\n" + "Team ZeNXL");
+					+ "To reset your password, click the link below:\n"
+					+ "https://ty-zenxl.herokuapp.com/swagger-ui/index.html#/zenxl-auth-controller/changePassword"
+					+ "\n\n" + "Note" + "\n" + "Passcode will expire in 10 minutes." + "\n\n" + "Thanks & Regards,"
+					+ "\n" + "Team ZeNXL");
 			sendEmail(mimeMessage);
 		} catch (MailException | MessagingException e) {
 			throw new EmailInterruptionException(e.getMessage());
@@ -156,35 +142,32 @@ public class ZenxlAuthService {
 	}
 
 	public String changePassword(String email, ChangePasswordRequest request) {
-		Optional<Passcode> passcode = passcodeRepository.findByEmail(email);
-		if (passcode.isPresent()) {
+		Passcode passcode = passcodeRepository.findByEmail(email)
+				.orElseThrow(() -> new ChangePasswordException(PASSCODE_NOT_FOUND_WITH_ENTERED_EMAIL));
+		
+		if (request.getPasscode().equals((passcode.getPasscode())) && passcode.getTimestamp().isAfter(LocalDateTime.now())) {
 
-			if (request.getPasscode() == (passcode.get().getPasscode())
-					&& passcode.get().getTimestamp().isAfter(LocalDateTime.now())) {
-
-				if (!Objects.equals(request.getPassword(), request.getConfirmPassword())) {
-					throw new ChangePasswordException(BOTH_PASSWORDS_SHOULD_BE_SAME);
-				}
-
-				Optional<User> findByEmail = userRepository.findByEmail(email);
-				User user;
-				if (findByEmail.isPresent()) {
-					user = findByEmail.get();
-
-					if (encoder.matches(request.getPassword(), user.getPassword())) {
-						throw new ChangePasswordException(OLD_PASSWORD_AND_NEW_PASSWORD_SHOULD_BE_DIFFERENT);
-					}
-
-					user.setPassword(encoder.encode(request.getPassword()));
-					userRepository.save(user);
-
-					return PASSWORD_RESET_SUCCESSFUL;
-				}
-				throw new ChangePasswordException(USER_DOESN_T_EXIST_WITH_THE_ENTERED_EMAIL);
+			if (!Objects.equals(request.getPassword(), request.getConfirmPassword())) {
+				throw new ChangePasswordException(BOTH_PASSWORDS_SHOULD_BE_SAME);
 			}
-			throw new ChangePasswordException(ENTERED_PASSCODE_NOT_VALID);
+
+			Optional<User> findByEmail = userRepository.findByEmail(email);
+			User user;
+			if (findByEmail.isPresent()) {
+				user = findByEmail.get();
+
+				if (encoder.matches(request.getPassword(), user.getPassword())) {
+					throw new ChangePasswordException(OLD_PASSWORD_AND_NEW_PASSWORD_SHOULD_BE_DIFFERENT);
+				}
+
+				user.setPassword(encoder.encode(request.getPassword()));
+				userRepository.save(user);
+
+				return PASSWORD_RESET_SUCCESSFUL;
+			}
+			throw new ChangePasswordException(USER_DOESN_T_EXIST_WITH_THE_ENTERED_EMAIL);
 		}
-		throw new ChangePasswordException(PASSCODE_NOT_FOUND_WITH_ENTERED_EMAIL);
+		throw new ChangePasswordException(ENTERED_PASSCODE_NOT_VALID);
 	}
 
 	public UserResponse adminRegistration(@Valid SignUpRequest request) {
