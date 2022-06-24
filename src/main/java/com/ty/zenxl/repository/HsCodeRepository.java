@@ -16,7 +16,7 @@ import com.ty.zenxl.entity.HsCode;
  */
 public interface HsCodeRepository extends JpaRepository<HsCode, Integer> {
 
-	boolean existsByHsCodeType(String hsCodeType);
+	Boolean existsByHsCodeType(String hsCodeType);
 
 	Optional<HsCode> findByHsCodeType(String hsCodeType);
 

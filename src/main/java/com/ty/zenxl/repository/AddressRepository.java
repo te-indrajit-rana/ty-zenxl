@@ -17,5 +17,5 @@ import com.ty.zenxl.entity.Address;
 public interface AddressRepository extends JpaRepository<Address, Integer> {
 
 	Optional<Address> findByAddressId(int addressId);
-	boolean existsByAddressId(int addressId);
+	Boolean existsByAddressId(int addressId);
 }

@@ -17,5 +17,5 @@ import com.ty.zenxl.entity.BillingDetails;
 public interface BillingDetailsRepository extends JpaRepository<BillingDetails, Integer> {
 
 	Optional<BillingDetails> findByBillingName(String billingName);
-	boolean existsByBillingDetailsId(int billingDetailsId);
+	Boolean existsByBillingDetailsId(int billingDetailsId);
 }

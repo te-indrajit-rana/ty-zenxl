@@ -46,7 +46,7 @@ public class ZenxlCustomUserDetailsService implements UserDetailsService {
 				throw new DisabledException(ACCOUNT_IS_CURRENTLY_INACTIVE);
 			}
 		} else {
-			throw new UsernameNotFoundException("User not found with the email " + email);
+			throw new UsernameNotFoundException(USER_NOT_FOUND_WITH_THE_EMAIL + email);
 		}
 	}
 

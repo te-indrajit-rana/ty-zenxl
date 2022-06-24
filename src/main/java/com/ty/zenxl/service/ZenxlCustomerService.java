@@ -96,7 +96,7 @@ public class ZenxlCustomerService {
 	public String updateCustomer(int customerId, UpdateCustomerRequest request) {
 
 		Customer initialCustomerDetails = customerRepository.findByCustomerId(customerId)
-				.orElseThrow(() -> new CustomerNotFoundException("Customer not found with customer id " + customerId));
+				.orElseThrow(() -> new CustomerNotFoundException(CUSTOMER_NOT_FOUND_WITH_CUSTOMER_ID + customerId));
 
 		Address updatedAddress = Address.builder().address1(request.getAddress1())
 				.address2(request.getAddress2()).city(request.getCity())
@@ -132,7 +132,7 @@ public class ZenxlCustomerService {
 
 	public String deleteCustomer(int customerId) {
 		Customer customer = customerRepository.findByCustomerId(customerId)
-				.orElseThrow(() -> new CustomerNotFoundException("Customer not found with customer id " + customerId));
+				.orElseThrow(() -> new CustomerNotFoundException(CUSTOMER_NOT_FOUND_WITH_CUSTOMER_ID + customerId));
 		customerRepository.deleteCustomer(customer.getCustomerId());
 		return DELETED_SUCCESSFULLY;
 	}
@@ -140,7 +140,7 @@ public class ZenxlCustomerService {
 	public ViewCustomerResponse viewCustomer(int customerId) {
 
 		Customer customer = customerRepository.findByCustomerId(customerId)
-				.orElseThrow(() -> new CustomerNotFoundException("Customer not found with customer id " + customerId));
+				.orElseThrow(() -> new CustomerNotFoundException(CUSTOMER_NOT_FOUND_WITH_CUSTOMER_ID + customerId));
 		ViewCustomerResponse viewCustomerResponse = ViewCustomerResponse.builder()
 				.customerName(customer.getCustomerName())
 				.customerAddressResponse(AddressResponse.builder().address1(customer.getAddress().getAddress1())

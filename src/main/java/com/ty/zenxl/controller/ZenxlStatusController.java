@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ty.zenxl.pojos.ZenxlResponseBody;
 import com.ty.zenxl.request.StatusRequest;
 import com.ty.zenxl.request.UpdateStatusRequest;
 import com.ty.zenxl.response.StatusCategoryResponse;
 import com.ty.zenxl.response.StatusResponse;
 import com.ty.zenxl.response.ViewStatusResponse;
+import com.ty.zenxl.response.ZenxlResponseBody;
 import com.ty.zenxl.service.ZenxlStatusService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

@@ -8,24 +8,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Represents the request DTO for {@code Code}
- * 
- * Contains bean validation properties, to validate the request object using
- * {@code @Valid} in {@code ZenxlUtilityController}
- * 
- * @author Indrajit
- * @version 1.0
- */
-
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class CodeRequest {
 
-	@NotNull(message = "Code type must not be null.")
-	@NotBlank(message = "Code type must not be blank.")
+	@NotNull(message = "codeType cannot be null")
+	@NotBlank(message = "codeType cannot be blank")
 	private String codeType;
+	@NotNull(message = "codeValue cannot be null")
+	@NotBlank(message = "codeValue cannot be blank")
+	private String codeValue;
 
 }

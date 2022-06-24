@@ -22,7 +22,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
 	Optional<Customer> findByCustomerId(int customerId);
 	 
-	boolean existsByCustomerName(String customerName);
+	Boolean existsByCustomerName(String customerName);
 
 	@Modifying
 	@Query("delete from Customer c where c.customerId=:customerId")

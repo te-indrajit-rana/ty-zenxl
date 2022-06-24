@@ -15,7 +15,8 @@ import lombok.Setter;
 /**
  * Defines the Status table created in the database with the mentioned fields.
  * 
- * statusName and statusCategory are defined in {@code StatusPKID} to be used as composite key for {@code Status} Table
+ * statusName and statusCategory are defined in {@code StatusPKID} to be used as
+ * composite key for {@code Status} Table
  * 
  * @author Indrajit
  * @version 1.0

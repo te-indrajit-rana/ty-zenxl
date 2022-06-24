@@ -8,23 +8,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Represents the request DTO for {@code Inspection}
- * 
- * Contains bean validation properties, to validate the request object using
- * {@code @Valid} in {@code ZenxlUtilityController}
- * 
- * @author Indrajit
- * @version 1.0
- */
-
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class InspectionRequest {
 
-	@NotNull(message = "Inspection type must not be null.")
-	@NotBlank(message = "Inspection type must not be blank.")
+	@NotNull(message = "inspectionType cannot be null")
+	@NotBlank(message = "inspectionType cannot be blank")
 	private String inspectionType;
+	@NotNull(message = "inspectionValue cannot be null")
+	@NotBlank(message = "inspectionValue cannot be blank")
+	private String inspectionValue;
+
 }

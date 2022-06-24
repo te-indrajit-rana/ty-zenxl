@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ty.zenxl.pojos.JwtToken;
-import com.ty.zenxl.pojos.ZenxlResponseBody;
 import com.ty.zenxl.request.ChangePasswordRequest;
 import com.ty.zenxl.request.LoginRequest;
 import com.ty.zenxl.request.SignUpRequest;
+import com.ty.zenxl.response.JwtToken;
 import com.ty.zenxl.response.UserResponse;
+import com.ty.zenxl.response.ZenxlResponseBody;
 import com.ty.zenxl.service.ZenxlAuthService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -52,7 +52,7 @@ public class ZenxlAuthController {
 	@PostMapping("/login")
 	public ResponseEntity<ZenxlResponseBody> authenticateUser(@Valid @RequestBody LoginRequest request)
 			throws AuthenticationException {
-		
+
 		String authenticationToken = zenxlAuthService.authenticateUser(request);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE)
 				.message(LOGIN_SUCCESSFUL)
@@ -62,7 +62,7 @@ public class ZenxlAuthController {
 
 	@PostMapping("/admin-registration")
 	public ResponseEntity<ZenxlResponseBody> adminRegistration(@Valid @RequestBody SignUpRequest request) {
-		
+
 		UserResponse adminRegistration = zenxlAuthService.adminRegistration(request);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE)
 				.message(SIGN_UP_SUCCESSFUL).data(adminRegistration).build();
@@ -70,9 +70,9 @@ public class ZenxlAuthController {
 	}
 
 	@GetMapping("/forgot-password")
-	public ResponseEntity<ZenxlResponseBody> forgotPassword(@RequestHeader String email,HttpServletRequest request) {
-		
-		String forgotPasswordMessage = zenxlAuthService.forgotPassword(email,request);
+	public ResponseEntity<ZenxlResponseBody> forgotPassword(@RequestHeader String email, HttpServletRequest request) {
+
+		String forgotPasswordMessage = zenxlAuthService.forgotPassword(email, request);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE)
 				.message(forgotPasswordMessage).build();
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
@@ -81,7 +81,7 @@ public class ZenxlAuthController {
 	@PutMapping("/change-password")
 	public ResponseEntity<ZenxlResponseBody> changePassword(@RequestHeader String email,
 			@Valid @RequestBody ChangePasswordRequest request) {
-		
+
 		String changePasswordMessage = zenxlAuthService.changePassword(email, request);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE)
 				.message(changePasswordMessage).build();

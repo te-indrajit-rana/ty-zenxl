@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ty.zenxl.pojos.ZenxlResponseBody;
 import com.ty.zenxl.request.CustomerRequest;
 import com.ty.zenxl.request.UpdateCustomerRequest;
 import com.ty.zenxl.response.CustomerResponse;
 import com.ty.zenxl.response.ViewCustomerResponse;
+import com.ty.zenxl.response.ZenxlResponseBody;
 import com.ty.zenxl.service.ZenxlCustomerService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

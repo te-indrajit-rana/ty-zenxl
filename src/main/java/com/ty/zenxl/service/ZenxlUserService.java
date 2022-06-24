@@ -79,7 +79,7 @@ public class ZenxlUserService {
 
 	public String updateUser(int userId, UpdateUserRequest request) {
 		User user = userRepository.findById(userId)
-				.orElseThrow(() -> new UserNotFoundException("User not found with user id " + userId));
+				.orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_WITH_USER_ID + userId));
 
 		if (!request.getUsername().equals(user.getUsername())) {
 			if (Boolean.TRUE.equals(userRepository.existsByUsername(request.getUsername()))) {
@@ -115,14 +115,14 @@ public class ZenxlUserService {
 
 	public String deleteUser(int userId) {
 		User user = userRepository.findByUserId(userId)
-				.orElseThrow(() -> new UserNotFoundException("User not found with user id " + userId));
+				.orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_WITH_USER_ID + userId));
 		userRepository.deleteUser(user.getUserId());
 		return DELETED_SUCCESSFULLY;
 	}
 
 	public String setUserStatus(int userId, boolean status) {
 		User user = userRepository.findByUserId(userId)
-				.orElseThrow(() -> new UserNotFoundException("User not found with userId " + userId));
+				.orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_WITH_USER_ID + userId));
 		user.setActive(status);
 		User updatedUser = userRepository.save(user);
 		if (updatedUser == null) {

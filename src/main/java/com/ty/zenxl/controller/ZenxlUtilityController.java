@@ -19,22 +19,22 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ty.zenxl.pojos.ZenxlResponseBody;
-import com.ty.zenxl.request.CertificateRequest;
-import com.ty.zenxl.request.CodeRequest;
+import com.ty.zenxl.request.CertificateTypeRequest;
+import com.ty.zenxl.request.CodeTypeRequest;
 import com.ty.zenxl.request.HsCodeRequest;
-import com.ty.zenxl.request.IncotermRequest;
-import com.ty.zenxl.request.InspectionRequest;
-import com.ty.zenxl.request.UpdateCertificateRequest;
-import com.ty.zenxl.request.UpdateCodeRequest;
+import com.ty.zenxl.request.IncotermTypeRequest;
+import com.ty.zenxl.request.InspectionTypeRequest;
+import com.ty.zenxl.request.UpdateCertificateTypeRequest;
+import com.ty.zenxl.request.UpdateCodeTypeRequest;
 import com.ty.zenxl.request.UpdateHsCodeRequest;
-import com.ty.zenxl.request.UpdateIncotermRequest;
-import com.ty.zenxl.request.UpdateInspectionRequest;
-import com.ty.zenxl.response.CertificateResponse;
-import com.ty.zenxl.response.CodeResponse;
+import com.ty.zenxl.request.UpdateIncotermTypeRequest;
+import com.ty.zenxl.request.UpdateInspectionTypeRequest;
+import com.ty.zenxl.response.CertificateTypeResponse;
+import com.ty.zenxl.response.CodeTypeResponse;
 import com.ty.zenxl.response.HsCodeResponse;
-import com.ty.zenxl.response.IncotermResponse;
-import com.ty.zenxl.response.InspectionResponse;
+import com.ty.zenxl.response.IncotermTypeResponse;
+import com.ty.zenxl.response.InspectionTypeResponse;
+import com.ty.zenxl.response.ZenxlResponseBody;
 import com.ty.zenxl.service.ZenxlUtilityService;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -59,133 +59,133 @@ public class ZenxlUtilityController {
 
 	private final ZenxlUtilityService zenxlUtilityService;
 
-	// certificate crud apis
+	// certificate-type crud apis
 
-	@PostMapping("/add-certificate")
-	public ResponseEntity<ZenxlResponseBody> addCertificate(@Valid @RequestBody CertificateRequest request) {
+	@PostMapping("/add-certificate-type")
+	public ResponseEntity<ZenxlResponseBody> addCertificateType(@Valid @RequestBody CertificateTypeRequest request) {
 
-		CertificateResponse addCertificate = zenxlUtilityService.addCertificate(request);
+		CertificateTypeResponse addCertificateType = zenxlUtilityService.addCertificateType(request);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE)
-				.message(ADDED_SUCCESSFULLY).data(addCertificate).build();
+				.message(ADDED_SUCCESSFULLY).data(addCertificateType).build();
 		return ResponseEntity.status(HttpStatus.CREATED).body(zenxlResponseBody);
 	}
 
-	@GetMapping("/find-all-certificates")
-	public ResponseEntity<List<CertificateResponse>> findAllCertificates() {
-		return ResponseEntity.ok(zenxlUtilityService.findAllCertificates());
+	@GetMapping("/find-all-certificate-types")
+	public ResponseEntity<List<CertificateTypeResponse>> findAllCertificateTypes() {
+		return ResponseEntity.ok(zenxlUtilityService.findAllCertificateTypes());
 	}
 
-	@PutMapping("/update-certificate")
-	public ResponseEntity<ZenxlResponseBody> updateCertificate(@RequestHeader int certificateId,
-			@Valid @RequestBody UpdateCertificateRequest request) {
+	@PutMapping("/update-certificate-type")
+	public ResponseEntity<ZenxlResponseBody> updateCertificateType(@RequestHeader int certificateTypeId,
+			@Valid @RequestBody UpdateCertificateTypeRequest request) {
 		
-		String updateCertificateMessage = zenxlUtilityService.updateCertificate(certificateId, request);
-		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(updateCertificateMessage).build();
+		String updateCertificateTypeMessage = zenxlUtilityService.updateCertificateType(certificateTypeId, request);
+		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(updateCertificateTypeMessage).build();
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
 
-	@DeleteMapping("/delete-certificate")
-	public ResponseEntity<ZenxlResponseBody> deleteCertificate(@RequestHeader int certificateId) {
+	@DeleteMapping("/delete-certificate-type")
+	public ResponseEntity<ZenxlResponseBody> deleteCertificateType(@RequestHeader int certificateTypeId) {
 		
-		String deleteCertificateMessage = zenxlUtilityService.deleteCertificate(certificateId);
-		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteCertificateMessage).build();
+		String deleteCertificateTypeMessage = zenxlUtilityService.deleteCertificateType(certificateTypeId);
+		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteCertificateTypeMessage).build();
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
 
-	// code crud apis
+	// code-type crud apis
 
-	@PostMapping("/add-code")
-	public ResponseEntity<ZenxlResponseBody> addCode(@Valid @RequestBody CodeRequest request) {
+	@PostMapping("/add-code-type")
+	public ResponseEntity<ZenxlResponseBody> addCodeType(@Valid @RequestBody CodeTypeRequest request) {
 		
-		CodeResponse addCode = zenxlUtilityService.addCode(request);
+		CodeTypeResponse addCodeType = zenxlUtilityService.addCodeType(request);
 		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE)
-				.message(ADDED_SUCCESSFULLY).data(addCode).build();
+				.message(ADDED_SUCCESSFULLY).data(addCodeType).build();
 		return ResponseEntity.status(HttpStatus.CREATED).body(zenxlResponseBody);
 	}
 
-	@GetMapping("/find-all-codes")
-	public ResponseEntity<List<CodeResponse>> findAllCodes() {
-		return ResponseEntity.ok(zenxlUtilityService.findAllCodes());
+	@GetMapping("/find-all-code-types")
+	public ResponseEntity<List<CodeTypeResponse>> findAllCodeTypes() {
+		return ResponseEntity.ok(zenxlUtilityService.findAllCodeTypes());
 	}
 
-	@PutMapping("/update-code")
-	public ResponseEntity<ZenxlResponseBody> updateCode(@RequestHeader int codeId,
-			@Valid @RequestBody UpdateCodeRequest request) {
+	@PutMapping("/update-code-type")
+	public ResponseEntity<ZenxlResponseBody> updateCodeType(@RequestHeader int codeTypeId,
+			@Valid @RequestBody UpdateCodeTypeRequest request) {
 		
-		String updateCodeMessage = zenxlUtilityService.updateCode(codeId, request);
-		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(updateCodeMessage).build();
+		String updateCodeTypeMessage = zenxlUtilityService.updateCodeType(codeTypeId, request);
+		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(updateCodeTypeMessage).build();
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
 
-	@DeleteMapping("/delete-code")
-	public ResponseEntity<ZenxlResponseBody> deleteCode(@RequestHeader int codeId) {
+	@DeleteMapping("/delete-code-type")
+	public ResponseEntity<ZenxlResponseBody> deleteCodeType(@RequestHeader int codeTypeId) {
 		
-		String deleteCodeMessage = zenxlUtilityService.deleteCode(codeId);
-		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteCodeMessage).build();
+		String deleteCodeTypeMessage = zenxlUtilityService.deleteCodeType(codeTypeId);
+		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteCodeTypeMessage).build();
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
 
-	// incoterm crud apis
+	// incoterm-type crud apis
 
-	@PostMapping("/add-incoterm")
-	public ResponseEntity<ZenxlResponseBody> addIncoterm(@Valid @RequestBody IncotermRequest request) {
+	@PostMapping("/add-incoterm-type")
+	public ResponseEntity<ZenxlResponseBody> addIncotermType(@Valid @RequestBody IncotermTypeRequest request) {
 		
-		IncotermResponse addIncoterm = zenxlUtilityService.addIncoterm(request);
-		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(ADDED_SUCCESSFULLY).data(addIncoterm).build();
+		IncotermTypeResponse addIncotermType = zenxlUtilityService.addIncotermType(request);
+		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(ADDED_SUCCESSFULLY).data(addIncotermType).build();
 		return ResponseEntity.status(HttpStatus.CREATED).body(zenxlResponseBody);
 	}
 
-	@GetMapping("/find-all-incoterms")
-	public ResponseEntity<List<IncotermResponse>> findAllIncoterms() {
-		return ResponseEntity.ok(zenxlUtilityService.findAllIncoterms());
+	@GetMapping("/find-all-incoterm-types")
+	public ResponseEntity<List<IncotermTypeResponse>> findAllIncotermTypes() {
+		return ResponseEntity.ok(zenxlUtilityService.findAllIncotermTypes());
 	}
 
-	@PutMapping("/update-incoterm")
-	public ResponseEntity<ZenxlResponseBody> updateIncoterm(@RequestHeader int incotermId,
-			@Valid @RequestBody UpdateIncotermRequest request) {
+	@PutMapping("/update-incoterm-type")
+	public ResponseEntity<ZenxlResponseBody> updateIncotermType(@RequestHeader int incotermTypeId,
+			@Valid @RequestBody UpdateIncotermTypeRequest request) {
 		
-		String updateIncotermMessage = zenxlUtilityService.updateIncoterm(incotermId, request);
-		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(updateIncotermMessage).build();
+		String updateIncotermTypeMessage = zenxlUtilityService.updateIncotermType(incotermTypeId, request);
+		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(updateIncotermTypeMessage).build();
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
 
-	@DeleteMapping("/delete-incoterm")
-	public ResponseEntity<ZenxlResponseBody> deleteIncoterm(@RequestHeader int incotermId) {
+	@DeleteMapping("/delete-incoterm-type")
+	public ResponseEntity<ZenxlResponseBody> deleteIncotermType(@RequestHeader int incotermTypeId) {
 		
-		String deleteIncotermMessage = zenxlUtilityService.deleteIncoterm(incotermId);
-		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteIncotermMessage).build();
+		String deleteIncotermTypeMessage = zenxlUtilityService.deleteIncotermType(incotermTypeId);
+		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteIncotermTypeMessage).build();
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
 
-	// inspection crud apis
+	// inspection-type crud apis
 
-	@PostMapping("/add-inspection")
-	public ResponseEntity<ZenxlResponseBody> addInspection(@Valid @RequestBody InspectionRequest request) {
+	@PostMapping("/add-inspection-type")
+	public ResponseEntity<ZenxlResponseBody> addInspectionType(@Valid @RequestBody InspectionTypeRequest request) {
 		
-		InspectionResponse addInspection = zenxlUtilityService.addInspection(request);
-		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(ADDED_SUCCESSFULLY).data(addInspection).build();
+		InspectionTypeResponse addInspectionType = zenxlUtilityService.addInspectionType(request);
+		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(ADDED_SUCCESSFULLY).data(addInspectionType).build();
 		return ResponseEntity.status(HttpStatus.CREATED).body(zenxlResponseBody);
 	}
 
-	@GetMapping("/find-all-inspections")
-	public ResponseEntity<List<InspectionResponse>> findAllInspections() {
-		return ResponseEntity.ok(zenxlUtilityService.findAllInspections());
+	@GetMapping("/find-all-inspection-types")
+	public ResponseEntity<List<InspectionTypeResponse>> findAllInspectionTypes() {
+		return ResponseEntity.ok(zenxlUtilityService.findAllInspectionTypes());
 	}
 
-	@PutMapping("/update-inspection")
-	public ResponseEntity<ZenxlResponseBody> updateInspection(@RequestHeader int inspectionId,
-			@Valid @RequestBody UpdateInspectionRequest request) {
+	@PutMapping("/update-inspection-type")
+	public ResponseEntity<ZenxlResponseBody> updateInspectionType(@RequestHeader int inspectionTypeId,
+			@Valid @RequestBody UpdateInspectionTypeRequest request) {
 		
-		String updateInspectionMessage = zenxlUtilityService.updateInspection(inspectionId, request);
-		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(updateInspectionMessage).build();
+		String updateInspectionTypeMessage = zenxlUtilityService.updateInspectionType(inspectionTypeId, request);
+		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(updateInspectionTypeMessage).build();
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
 
-	@DeleteMapping("/delete-inspection")
-	public ResponseEntity<ZenxlResponseBody> deleteInspection(@RequestHeader int inspectionId) {
+	@DeleteMapping("/delete-inspection-type")
+	public ResponseEntity<ZenxlResponseBody> deleteInspectionType(@RequestHeader int inspectionTypeId) {
 		
-		String deleteInspectionMessage = zenxlUtilityService.deleteInspection(inspectionId);
-		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteInspectionMessage).build();
+		String deleteInspectionTypeMessage = zenxlUtilityService.deleteInspectionType(inspectionTypeId);
+		ZenxlResponseBody zenxlResponseBody = ZenxlResponseBody.builder().isError(IS_ERROR_FALSE).message(deleteInspectionTypeMessage).build();
 		return ResponseEntity.status(HttpStatus.OK).body(zenxlResponseBody);
 	}
 

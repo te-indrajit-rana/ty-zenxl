@@ -8,7 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * Defines the columns that forms a composite key for the {@code Status} table created in the database.
+ * Defines the columns that forms a composite key for the {@code Status} table
+ * created in the database.
  * 
  * @author Indrajit
  * @version 1.0
@@ -20,9 +21,9 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class StatusPKID implements Serializable	 {
+public class StatusPKID implements Serializable {
 
 	private String statusName;
-    private String statusCategory;
+	private String statusCategory;
 
 }
